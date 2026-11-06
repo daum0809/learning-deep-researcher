@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>배움 세계여행</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky-top:#141a3a; --sky-mid:#3b2f6b; --sky-bot:#c98bb9;
+  --glass:rgba(255,255,255,.10); --glass-2:rgba(255,255,255,.16); --line:rgba(255,255,255,.22);
+  --ink:#fdf8ff; --ink-2:#d9d2f0; --ink-3:#a99fcf;
+  --gold:#ffd27a; --coral:#ff7a90; --mint:#7ee8a8; --sky:#4fc3f7; --red:#ff6b6b;
+  --radius:18px; --shadow:0 18px 50px rgba(10,6,40,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;color:var(--ink);font-family:"Gowun Dodum",system-ui,sans-serif;
+  background:radial-gradient(120% 90% at 50% 110%, var(--sky-bot) 0%, var(--sky-mid) 42%, var(--sky-top) 78%);}
+h1,h2,h3,.jua{font-family:"Jua","Gowun Dodum",sans-serif;font-weight:400;letter-spacing:.2px}
+button,select,input,textarea{font-family:inherit;color:inherit}
+#stage{position:fixed;inset:0}
+#labels{position:fixed;inset:0;pointer-events:none}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);
+  backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);box-shadow:var(--shadow)}
+
+/* ── 위쪽 띠 ── */
+#top{position:fixed;left:16px;right:16px;top:14px;display:flex;gap:12px;align-items:center;z-index:5}
+#brand{display:flex;align-items:center;gap:10px;padding:10px 16px}
+#brand .logo{font-size:26px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+#brand h1{margin:0;font-size:22px;line-height:1}
+#brand small{display:block;color:var(--ink-3);font-size:12px;margin-top:3px}
+#badges{display:flex;gap:8px;flex-wrap:wrap;flex:1;max-width:calc(50vw - 160px)}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;font-size:13.5px;
+  background:var(--glass-2);border:1px solid var(--line);white-space:nowrap}
+.pill b{font-family:Jua;font-weight:400}
+.pill.live{background:rgba(255,107,107,.22);border-color:rgba(255,140,140,.6)}
+.pill.replay{background:rgba(126,232,168,.18);border-color:rgba(126,232,168,.55)}
+.pill.view{background:rgba(79,195,247,.16);border-color:rgba(79,195,247,.5)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(255,107,107,.7);animation:pulse 1.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,107,107,.7)}70%{box-shadow:0 0 0 10px rgba(255,107,107,0)}100%{box-shadow:0 0 0 0 rgba(255,107,107,0)}}
+.btn{cursor:pointer;border:1px solid var(--line);background:var(--glass-2);border-radius:12px;padding:9px 14px;font-size:14px;transition:.15s}
+.btn:hover{background:rgba(255,255,255,.26);transform:translateY(-1px)}
+.btn.primary{background:linear-gradient(135deg,#ff9a8b,#ff6a88 55%,#ff99ac);border-color:transparent;font-family:Jua;font-size:16px;
+  box-shadow:0 8px 22px rgba(255,106,136,.45)}
+.btn.primary:disabled{filter:grayscale(.7);opacity:.6;cursor:not-allowed;transform:none}
+
+/* ── 여행 계획 서랍 ── */
+#planner{position:fixed;top:84px;left:16px;width:340px;padding:16px;z-index:6;display:none}
+#planner.open{display:block}
+#planner h3{margin:0 0 10px;font-size:18px}
+.field{margin:10px 0}
+.field label{display:block;font-size:12.5px;color:var(--ink-2);margin-bottom:5px}
+.field textarea,.field input[type=number],.field select{width:100%;background:rgba(10,8,40,.35);border:1px solid var(--line);
+  border-radius:10px;padding:9px 10px;font-size:14px;outline:none}
+.field textarea{height:64px;resize:vertical}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.toggles{display:grid;grid-template-columns:1fr;gap:6px}
+.toggle{display:flex;gap:8px;align-items:center;font-size:13.5px;padding:7px 9px;border-radius:10px;background:rgba(10,8,40,.25);cursor:pointer}
+.toggle input{accent-color:#ff7a90}
+.hint{font-size:12px;color:var(--ink-3);line-height:1.5}
+.warn{font-size:12.5px;color:#ffe2a8;background:rgba(255,200,90,.12);border:1px solid rgba(255,200,90,.35);padding:8px 10px;border-radius:10px;margin-top:8px}
+
+/* ── 왼쪽: 여행자 일정표 ── */
+#itin{position:fixed;left:16px;top:84px;bottom:150px;width:300px;padding:14px;z-index:4;overflow:auto}
+#itin h3{margin:2px 0 4px;font-size:18px}
+#itin .q{font-size:13px;color:var(--ink-2);margin-bottom:10px;line-height:1.5}
+.tcard{border-radius:14px;padding:11px 12px;margin:9px 0;background:rgba(10,8,40,.28);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:.15s;position:relative;overflow:hidden}
+.tcard:hover{background:rgba(10,8,40,.4)}
+.tcard.sel{outline:2px solid var(--c);outline-offset:-2px}
+.tcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.tcard .hd{display:flex;align-items:center;gap:8px}
+.tcard .av{width:28px;height:28px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-family:Jua;color:#2a1d4a;font-size:15px;flex:none}
+.tcard .ti{font-family:Jua;font-size:15px;line-height:1.2}
+.tcard .ro{font-size:12px;color:var(--ink-3)}
+.tcard .st{margin-left:auto;font-size:12px;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.12);white-space:nowrap}
+.stamps{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.stamp{font-size:11.5px;padding:3px 7px;border-radius:7px;border:1.5px dashed var(--c);color:var(--ink);background:rgba(255,255,255,.06)}
+.stamp.seed{border-style:solid}
+.stamp.now{background:var(--c);color:#24183f}
+.meter{height:6px;border-radius:6px;background:rgba(255,255,255,.12);margin-top:8px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--c);border-radius:6px}
+.coord{--c:var(--gold)}
+
+/* ── 오른쪽 패널 ── */
+#side{position:fixed;right:16px;top:84px;bottom:150px;width:420px;z-index:4;display:flex;flex-direction:column;overflow:hidden}
+#tabs{display:flex;gap:4px;padding:8px 8px 0}
+.tab{flex:1;cursor:pointer;border:none;background:transparent;padding:9px 2px;border-radius:12px 12px 0 0;font-size:12.5px;color:var(--ink-2);white-space:nowrap}
+.tab.on{background:rgba(255,255,255,.14);color:var(--ink);font-family:Jua;font-size:13.5px}
+#pane{flex:1;overflow:auto;padding:14px 16px;background:rgba(255,255,255,.06);border-top:1px solid var(--line)}
+.kv{display:grid;grid-template-columns:96px 1fr;gap:6px 10px;font-size:13.5px;margin:6px 0 12px}
+.kv dt{color:var(--ink-3)}.kv dd{margin:0;word-break:break-all}
+.box{background:rgba(10,8,40,.35);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word;max-height:300px;overflow:auto}
+.sec-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;font-size:12.5px;background:var(--c);color:#24183f;font-family:Jua}
+.evhead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.evhead .big{font-size:30px}
+.evhead h2{margin:0;font-size:19px;line-height:1.3}
+.cite{cursor:pointer;border:none;background:rgba(255,210,122,.22);color:#ffe7b0;border-radius:6px;padding:0 4px;font-size:inherit}
+.cite.bad{background:rgba(255,107,107,.3);color:#ffd0d0;text-decoration:line-through}
+.report h1{font-size:22px;margin:4px 0 10px}.report h2{font-size:17px;margin:18px 0 6px;color:#ffe2f0}
+.report p{line-height:1.8;font-size:14px;margin:6px 0}
+.bar{display:grid;grid-template-columns:120px 1fr 92px;gap:8px;align-items:center;font-size:12.5px;margin:6px 0}
+.bar .tr{height:10px;border-radius:6px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
+.bar .tr i{position:absolute;left:0;top:0;bottom:0;background:var(--c);border-radius:6px}
+.bar .num{text-align:right;color:var(--ink-2)}
+table.toc{width:100%;border-collapse:collapse;font-size:13px}
+table.toc td,table.toc th{padding:6px 5px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;vertical-align:top}
+table.toc th{color:var(--ink-3);font-weight:400}
+.empty{color:var(--ink-3);text-align:center;padding:30px 10px;line-height:1.7}
+.logline{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;white-space:pre-wrap;margin:3px 0;color:var(--ink-2)}
+details{margin:6px 0}summary{cursor:pointer;color:var(--ink-2);font-size:13px}
+
+/* ── 아래: 디버거 ── */
+#dock{position:fixed;left:16px;right:16px;bottom:14px;height:122px;padding:12px 16px;z-index:5;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center}
+#transport{display:flex;gap:6px;align-items:center}
+.tbtn{width:42px;height:42px;border-radius:13px;border:1px solid var(--line);background:var(--glass-2);cursor:pointer;font-size:17px;display:grid;place-items:center;transition:.12s}
+.tbtn:hover{background:rgba(255,255,255,.28)}
+.tbtn.play{width:54px;height:54px;border-radius:50%;font-size:22px;background:linear-gradient(135deg,#ffd27a,#ff9f6e);border:none;color:#3a1f2a;box-shadow:0 8px 20px rgba(255,170,100,.4)}
+#tl{display:flex;flex-direction:column;gap:6px;min-width:0}
+#caption{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#caption .ix{font-family:Jua;color:var(--gold);margin-right:8px}
+#ticks{height:22px;width:100%;cursor:pointer;border-radius:6px;background:rgba(10,8,40,.3)}
+#scrub{width:100%;accent-color:#ffd27a;margin:0}
+#bps{display:flex;gap:5px;flex-wrap:wrap;align-items:center;max-width:430px;justify-content:flex-end}
+#bps .lab{font-size:12px;color:var(--ink-3);width:100%;text-align:right}
+.bp{font-size:12px;padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer}
+.bp.on{background:rgba(255,107,107,.3);border-color:rgba(255,130,130,.8)}
+.bp.on::before{content:"● ";color:#ff6b6b}
+#cam{background:rgba(20,14,50,.55);padding:9px 10px;max-width:240px;flex:none}
+#cam option,#speed option,select option{background:#2b2350;color:#fff}
+.metric{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:11px 12px;border-radius:12px;background:rgba(10,8,40,.3);border:1px solid rgba(255,255,255,.12);margin:8px 0}
+.metric .v{font-family:Jua;font-size:24px;text-align:right}
+.metric .n{font-family:Jua;font-size:15px}
+.metric .d{grid-column:1/-1;font-size:12.5px;color:var(--ink-3);line-height:1.55}
+.metric.alarm-ok{border-color:rgba(126,232,168,.5)}.metric.alarm-bad{border-color:rgba(255,107,107,.8);background:rgba(255,107,107,.15)}
+#speed{background:rgba(10,8,40,.35);border:1px solid var(--line);border-radius:10px;padding:6px 8px}
+kbd{font-family:ui-monospace,Consolas,monospace;font-size:11px;padding:1px 5px;border-radius:5px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2)}
+
+/* ── 3D 위 라벨 ── */
+.city-label{font-size:11.5px;padding:2px 7px;border-radius:999px;background:rgba(20,14,50,.55);border:1px solid rgba(255,255,255,.18);white-space:nowrap;
+  transform:translateY(-14px);transition:opacity .2s, background .2s;pointer-events:auto;cursor:pointer}
+.city-label.hot{background:rgba(255,210,122,.85);color:#3a2410;font-family:Jua;font-size:12.5px}
+.city-label.avoid{background:rgba(255,107,107,.75);color:#fff}
+.city-label.avoid::before{content:"🚩 "}
+.city-label.visited{border-color:var(--c);border-width:2px}
+.city-label.reading{background:var(--c);color:#24183f;font-family:Jua;font-size:13px}
+.trav-label{display:flex;flex-direction:column;align-items:center;gap:3px;transform:translateY(-22px)}
+.trav-label .nm{font-family:Jua;font-size:12.5px;padding:2px 8px;border-radius:999px;background:var(--c);color:#24183f;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.trav-label .bub{font-size:12px;padding:4px 9px;border-radius:12px;background:rgba(255,255,255,.92);color:#2b2350;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+.trav-label .bub:empty{display:none}
+.hq-label{display:flex;flex-direction:column;align-items:center;gap:4px;transform:translateY(-30px)}
+.hq-label .nm{font-family:Jua;font-size:14px;padding:4px 11px;border-radius:999px;background:var(--gold);color:#3a2410;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.hq-label .bub{font-size:12.5px;padding:5px 10px;border-radius:12px;background:rgba(255,255,255,.94);color:#2b2350;white-space:nowrap}
+
+/* ── 문서 미리보기 ── */
+#modal{position:fixed;inset:0;background:rgba(8,5,30,.55);display:none;place-items:center;z-index:20}
+#modal.open{display:grid}
+#modal .card{width:min(680px,92vw);max-height:80vh;overflow:auto;padding:20px 22px}
+#modal h2{margin:0 0 4px}
+#toast{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:30;padding:10px 16px;display:none}
+@media (max-width:1100px){#itin{display:none}#side{width:min(420px,calc(100vw - 32px))}}
+</style>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="labels"></div>
+
+<header id="top">
+  <div id="brand" class="glass"><span class="logo">🎓</span><div><h1>배움 세계여행</h1><small id="brandSub">딥리서처를 여행으로 지켜보기</small></div></div>
+  <div id="badges"></div>
+  <select id="cam" class="btn" title="🎥 시점"><option value="free">🎥 자유 시점</option><option value="auto">🎬 자동 — 지금 주인공 따라가기</option><option value="hq">🧭 본사</option></select>
+  <button class="btn" id="openPlanner">⏪ 다른 여행 고르기</button>
+</header>
+
+<section id="planner" class="glass">
+  <div hidden>
+  <div class="field"><label>질문 세트에서 고르기</label><select id="fPreset"></select></div>
+  <div class="field"><label>질문 — 여행의 목적</label><textarea id="fQuestion"></textarea><div class="hint" id="fWhy"></div></div>
+  <div class="row">
+    <div class="field"><label>여행자 수 (절 수)</label><input id="fSections" type="number" min="1" max="8" value="4"></div>
+    <div class="field"><label>도시 예산 (절 예산)</label><input id="fBudget" type="number" min="1" max="8" value="3"></div>
+  </div>
+  <div class="toggles">
+    <label class="toggle"><input type="checkbox" id="fNoRoles"> 역할 끔 — 모두 같은 범용 여행자</label>
+    <label class="toggle"><input type="checkbox" id="fNoAssign"> 배정 끔 — 첫 도시를 정해 주지 않음</label>
+    <label class="toggle"><input type="checkbox" id="fNoZones"> 구역 끔 — 남의 도시에도 착륙 허용</label>
+  </div>
+  <div class="row">
+    <div class="field"><label>실행 모드</label><select id="fMode"><option value="auto">자동 (키 있으면 실제 호출)</option><option value="replay">저장된 기록 재생</option></select></div>
+    <div class="field"><label>재생 속도 (호출당 초)</label><input id="fPace" type="number" step="0.1" min="0" max="5" value="0.7"></div>
+  </div>
+  <div class="field"><label>🌩️ 결항 시나리오 (재생 모드 전용)</label><select id="fIncident"><option value="">없음</option></select></div>
+  <div id="planWarn"></div>
+  <div class="row" style="margin-top:12px">
+    <button class="btn primary" id="go">✈️ 출발!</button>
+  </div>
+  </div>
+  <h3>⏪ 저장된 여행 다시보기</h3>
+  <div class="hint" style="margin-bottom:8px">output/runs.jsonl 에 저장된 실행을 3D 여행으로 다시 그립니다. 모델을 부르지 않아요. 👥 다중 에이전트 · 👤 단일 대조군</div>
+  <div class="field"><select id="fRuns"></select></div>
+  <button class="btn" id="loadRun" style="width:100%">불러오기</button>
+</section>
+
+<aside id="itin" class="glass"></aside>
+
+<aside id="side" class="glass">
+  <nav id="tabs">
+    <button class="tab on" data-tab="event">🔍 이벤트</button>
+    <button class="tab" data-tab="vars">🧮 변수</button>
+    <button class="tab" data-tab="report">📘 가이드북</button>
+    <button class="tab" data-tab="score">📊 결산</button>
+    <button class="tab" data-tab="log">📜 로그</button>
+  </nav>
+  <div id="pane"></div>
+</aside>
+
+<footer id="dock" class="glass">
+  <div id="transport">
+    <button class="tbtn" id="bFirst" title="처음 (Home)">⏮</button>
+    <button class="tbtn" id="bPrev" title="한 단계 뒤로 (← / Shift+F10)">◀</button>
+    <button class="tbtn play" id="bPlay" title="재생/일시정지 (Space)">▶</button>
+    <button class="tbtn" id="bNext" title="한 단계 앞으로 (→ / F10)">▶|</button>
+    <button class="tbtn" id="bCont" title="다음 중단점까지 (F5)">⏭</button>
+    <select id="speed" title="재생 배속"><option>0.5</option><option selected>1</option><option>2</option><option>4</option><option>8</option></select>
+  </div>
+  <div id="tl">
+    <div id="caption"><span class="ix">— / —</span>저장된 여행을 불러오는 중…</div>
+    <canvas id="ticks"></canvas>
+    <input type="range" id="scrub" min="-1" max="-1" value="-1">
+  </div>
+  <div id="bps"></div>
+</footer>
+
+<div id="modal"><div class="card glass" id="modalCard"></div></div>
+<div id="toast" class="glass"></div>
+
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { CSS2DRenderer, CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
+
+/* ───────────────────────── 공통 ───────────────────────── */
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = (n) => Number(n || 0).toLocaleString("ko-KR");
+const COLORS = ["#ff7a90","#4fc3f7","#ffd166","#7ee8a8","#b69cff","#ff9f6e","#5eead4","#f9a8d4"];
+const GOLD = "#ffd27a";
+let WINDOW_CHARS = 256000, WINDOW_NOTE = "128K 토큰 × 2자";  // 서버가 모델·자료에 맞춰 다시 알려 준다
+const colorOf = (sec) => sec == null ? GOLD : COLORS[sec % COLORS.length];
+const STEP_LABEL = {plan:"일정표 짜기", read:"취재", pick:"행선지 고르기", write:"엽서 쓰기", edit:"가이드북 제본"};
+function toast(msg, ms = 2600){ const t = $("#toast"); t.textContent = msg; t.style.display = "block"; clearTimeout(toast.h); toast.h = setTimeout(() => t.style.display = "none", ms); }
+const shortName = (t) => { const m = String(t || "").match(/^(.{2,40}?\(\d{4}\))\s/); return m ? `📄 ${m[1]}` : t; };   // 논문은 저자 (연도)만
+function parseObj(raw){ try { const m = String(raw).match(/\{[\s\S]*\}/); return m ? JSON.parse(m[0]) : {}; } catch { return {}; } }
+
+/* ───────────────────────── 3D 무대 ───────────────────────── */
+const R = 10;
+const stage = $("#stage");
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+stage.appendChild(renderer.domElement);
+const labelRenderer = new CSS2DRenderer({ element: $("#labels") });
+labelRenderer.setSize(innerWidth, innerHeight);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 600);
+camera.position.set(3, 11.5, 43);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.minDistance = 16; controls.maxDistance = 70; controls.target.set(0, 3.2, 0);
+controls.autoRotate = true; controls.autoRotateSpeed = 0.35; controls.enablePan = false;
+
+scene.add(new THREE.HemisphereLight(0xcfe3ff, 0x6b4a8f, 1.15));
+const sun = new THREE.DirectionalLight(0xffe2c4, 2.1); sun.position.set(-20, 28, 22); scene.add(sun);
+const rim = new THREE.DirectionalLight(0xff9ad0, 0.9); rim.position.set(25, -6, -20); scene.add(rim);
+
+// 별
+{
+  const g = new THREE.BufferGeometry(), n = 1600, p = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) { const v = new THREE.Vector3().randomDirection().multiplyScalar(160 + Math.random() * 120); p.set([v.x, v.y, v.z], i * 3); }
+  g.setAttribute("position", new THREE.BufferAttribute(p, 3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xfff6e8, size: 0.7, sizeAttenuation: true, transparent: true, opacity: .85 })));
+}
+
+// 지구본 — 값 노이즈로 파스텔 섬을 만든다
+function hash3(x, y, z){ const h = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return h - Math.floor(h); }
+function noise3(x, y, z){
+  const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = x - xi, yf = y - yi, zf = z - zi;
+  const s = (t) => t * t * (3 - 2 * t), u = s(xf), v = s(yf), w = s(zf);
+  const L = (a, b, t) => a + (b - a) * t;
+  const c = (dx, dy, dz) => hash3(xi + dx, yi + dy, zi + dz);
+  return L(L(L(c(0,0,0), c(1,0,0), u), L(c(0,1,0), c(1,1,0), u), v), L(L(c(0,0,1), c(1,0,1), u), L(c(0,1,1), c(1,1,1), u), v), w);
+}
+function fbm(v){ let a = 0, f = 1.35, amp = .55; for (let i = 0; i < 4; i++) { a += amp * noise3(v.x * f + 7, v.y * f + 3, v.z * f + 11); f *= 2.03; amp *= .5; } return a; }
+function elevation(dir){ return fbm(dir) - 0.53 + Math.max(0, dir.y - 0.86) * 2.4; }   // 북극(본사)은 꼭 섬이 되게
+function surfaceR(dir){ const e = elevation(dir); return R * (1 + (e > 0 ? e * 0.16 + 0.004 : 0)); }
+{
+  const geo = new THREE.IcosahedronGeometry(R, 42);
+  const pos = geo.attributes.position, col = new Float32Array(pos.count * 3);
+  const tmp = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) { tmp.fromBufferAttribute(pos, i).normalize(); const r = surfaceR(tmp); pos.setXYZ(i, tmp.x * r, tmp.y * r, tmp.z * r); }
+  const pal = { deep: new THREE.Color("#3a6fd0"), shallow: new THREE.Color("#5fd3d6"), sand: new THREE.Color("#ffe0a6"),
+    grass: new THREE.Color("#98e0a0"), forest: new THREE.Color("#5fbf8a"), hill: new THREE.Color("#c7b6ff"), snow: new THREE.Color("#ffffff") };
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c3 = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i += 3) {
+    a.fromBufferAttribute(pos, i); b.fromBufferAttribute(pos, i + 1); c3.fromBufferAttribute(pos, i + 2);
+    const e = elevation(a.add(b).add(c3).normalize());
+    const k = e < -0.08 ? pal.deep : e < 0 ? pal.shallow : e < 0.03 ? pal.sand : e < 0.1 ? pal.grass : e < 0.17 ? pal.forest : e < 0.23 ? pal.hill : pal.snow;
+    const jitter = 0.94 + hash3(i, 1, 2) * 0.1;
+    for (let j = 0; j < 3; j++) col.set([k.r * jitter, k.g * jitter, k.b * jitter], (i + j) * 3);
+  }
+  geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  geo.computeVertexNormals();
+  const globe = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: .85, metalness: 0 }));
+  scene.add(globe);
+  // 대기 빛무리
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(R * 1.12, 64, 64), new THREE.ShaderMaterial({
+    transparent: true, side: THREE.BackSide, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }`,
+    fragmentShader: `varying vec3 vN; void main(){ float k = pow(0.72 - dot(vN, vec3(0.,0.,1.)), 3.0); gl_FragColor = vec4(1.0,0.72,0.9,1.0) * k * 1.4; }`,
+  }));
+  scene.add(halo);
+}
+
+// 구름
+const clouds = [];
+{
+  const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, flatShading: true, transparent: true, opacity: .92 });
+  for (let i = 0; i < 11; i++) {
+    const g = new THREE.Group();
+    for (let j = 0; j < 4; j++) { const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.45 + Math.random() * 0.35, 1), mat); s.position.set((j - 1.5) * 0.55, Math.random() * 0.2, Math.random() * 0.3); g.add(s); }
+    const axis = new THREE.Vector3().randomDirection(), start = new THREE.Vector3().randomDirection();
+    clouds.push({ g, axis, start, speed: 0.02 + Math.random() * 0.03, r: R * (1.28 + Math.random() * 0.12) });
+    scene.add(g);
+  }
+}
+
+/* ── 본사(등대 관제탑) ── */
+const UP = new THREE.Vector3(0, 1, 0);
+const hq = new THREE.Group();
+const HQ_BASE = surfaceR(UP);
+hq.position.set(0, HQ_BASE, 0);
+scene.add(hq);
+let hqBeam, hqBook, hqBubble;
+{
+  const stripe = (c) => new THREE.MeshStandardMaterial({ color: c, roughness: .6, flatShading: true });
+  for (let i = 0; i < 4; i++) {
+    const seg = new THREE.Mesh(new THREE.CylinderGeometry(0.55 - i * 0.06, 0.6 - i * 0.06, 0.55, 14), stripe(i % 2 ? 0xff7a90 : 0xfff6ef));
+    seg.position.y = 0.28 + i * 0.55; hq.add(seg);
+  }
+  const deck = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.12, 20), stripe(0x6b5bd6)); deck.position.y = 2.5; hq.add(deck);
+  const lamp = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.5, 12), new THREE.MeshStandardMaterial({ color: 0xfff2b0, emissive: 0xffd27a, emissiveIntensity: 1.6 }));
+  lamp.position.y = 2.82; hq.add(lamp);
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(0.48, 0.5, 12), stripe(0xff7a90)); roof.position.y = 3.32; hq.add(roof);
+  hqBeam = new THREE.Mesh(new THREE.ConeGeometry(1.1, 6, 24, 1, true), new THREE.MeshBasicMaterial({ color: 0xffe7a0, transparent: true, opacity: .16, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+  hqBeam.geometry.translate(0, -3, 0); hqBeam.geometry.rotateZ(Math.PI / 2);
+  const beamPivot = new THREE.Group(); beamPivot.position.y = 2.82; beamPivot.add(hqBeam); hq.add(beamPivot); hqBeam.pivot = beamPivot;
+  hq.add(makeCaptain());
+  hqBook = new THREE.Group();
+  const cover = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.22, 0.9), new THREE.MeshStandardMaterial({ color: 0x6b5bd6, roughness: .5 }));
+  const pages = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.16, 0.82), new THREE.MeshStandardMaterial({ color: 0xfffaf0 }));
+  pages.position.x = 0.04; hqBook.add(cover, pages); hqBook.position.set(1.35, 2.9, 0); hqBook.scale.setScalar(0.001); hq.add(hqBook);
+  const div = document.createElement("div"); div.className = "hq-label";
+  div.innerHTML = `<span class="nm">🧭 본사 · 코디네이터</span><span class="bub">출발 준비 중</span>`;
+  const lab = new CSS2DObject(div); lab.position.set(0, 4.2, 0); hq.add(lab); hqBubble = div.querySelector(".bub");
+}
+function makeCaptain(){
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.17, 0.22, 4, 10), new THREE.MeshStandardMaterial({ color: 0x3b3a8f, roughness: .6 }));
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.17, 16, 16), new THREE.MeshStandardMaterial({ color: 0xffe0c8, roughness: .7 }));
+  head.position.y = 0.36;
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.19, 0.08, 16), new THREE.MeshStandardMaterial({ color: 0xffffff }));
+  cap.position.y = 0.5; const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.02, 12), new THREE.MeshStandardMaterial({ color: 0x222244 }));
+  brim.position.set(0, 0.46, 0.12);
+  g.add(body, head, cap, brim); g.position.set(-0.55, 2.78, 0.3);
+  return g;
+}
+
+/* ── 도시(문서) ── */
+let CORPUS = { docs: [], links: {} };
+const cities = new Map();   // title -> {group, dir, top, label, ring, beacon}
+const routeLines = [];
+function layoutSphere(titles, links){
+  // 링크로 이어진 문서끼리 가깝게 — 구면 위 힘 배치. 북극(본사) 주변은 비워 둔다
+  const n = titles.length, idx = new Map(titles.map((t, i) => [t, i]));
+  const P = titles.map((_, i) => { const y = 0.72 - 1.45 * (i + .5) / n, r = Math.sqrt(1 - y * y), th = i * 2.399963; return new THREE.Vector3(Math.cos(th) * r, y, Math.sin(th) * r); });
+  const edges = []; for (const [a, ts] of Object.entries(links)) for (const b of ts) if (idx.has(a) && idx.has(b)) edges.push([idx.get(a), idx.get(b)]);
+  const F = P.map(() => new THREE.Vector3()), d = new THREE.Vector3();
+  for (let it = 0; it < 420; it++) {
+    F.forEach((f) => f.set(0, 0, 0));
+    for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) { d.subVectors(P[i], P[j]); const l2 = Math.max(d.lengthSq(), 1e-3); d.multiplyScalar(0.012 / l2); F[i].add(d); F[j].sub(d); }
+    for (const [a, b] of edges) { d.subVectors(P[b], P[a]).multiplyScalar(0.006); F[a].add(d); F[b].sub(d); }
+    const cool = 1 - it / 460;
+    for (let i = 0; i < n; i++) { P[i].addScaledVector(F[i], cool).normalize(); if (P[i].y > 0.74) { P[i].y = 0.74; P[i].normalize(); } if (P[i].y < -0.8) { P[i].y = -0.8; P[i].normalize(); } }
+  }
+  return P;
+}
+function buildCities(){
+  const titles = CORPUS.docs.map((d) => d.title);
+  const P = layoutSphere(titles, CORPUS.links);
+  const maxChars = Math.max(...CORPUS.docs.map((d) => d.chars));
+  const pastel = [0xffb3c1, 0xa0e7e5, 0xffd6a5, 0xcaffbf, 0xbdb2ff, 0xffc6ff, 0x9bf6ff, 0xfdffb6];
+  CORPUS.docs.forEach((doc, i) => {
+    const dir = P[i], g = new THREE.Group(), base = surfaceR(dir) - 0.02;
+    g.position.copy(dir).multiplyScalar(base); g.quaternion.setFromUnitVectors(UP, dir);
+    const island = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.78, 0.22, 9), new THREE.MeshStandardMaterial({ color: 0xffe0a6, flatShading: true, roughness: .9 }));
+    island.position.y = 0.05; g.add(island);
+    const grass = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.6, 0.06, 9), new THREE.MeshStandardMaterial({ color: 0x98e0a0, flatShading: true }));
+    grass.position.y = 0.18; g.add(grass);
+    const h = 0.35 + 2.2 * Math.sqrt(doc.chars / maxChars);   // 건물 높이 = 문서 글자 수
+    const col = pastel[i % pastel.length], isPaper = doc.kind === "paper";
+    if (isPaper) {   // 📄 논문 = 돔 지붕 연구소 (라벤더 기둥 + 금빛 돔)
+      const hall = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.34, h, 10), new THREE.MeshStandardMaterial({ color: 0xc9b8ff, roughness: .5, flatShading: true }));
+      hall.position.y = 0.2 + h / 2; g.add(hall);
+      const dome = new THREE.Mesh(new THREE.SphereGeometry(0.32, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0xffd27a, roughness: .35, metalness: .2 }));
+      dome.position.y = 0.2 + h; g.add(dome);
+    } else {
+    const tower = new THREE.Mesh(new THREE.BoxGeometry(0.42, h, 0.42), new THREE.MeshStandardMaterial({ color: col, roughness: .55, emissive: 0xfff0b0, emissiveIntensity: .05 }));
+    tower.position.y = 0.2 + h / 2; g.add(tower);
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.32, 4), new THREE.MeshStandardMaterial({ color: doc.lang === "en" ? 0x7cc6ff : 0xff8fa3, flatShading: true }));
+    roof.position.y = 0.2 + h + 0.16; roof.rotation.y = Math.PI / 4; g.add(roof);
+    }
+    if (!isPaper && h > 0.9) { const side = new THREE.Mesh(new THREE.BoxGeometry(0.3, h * 0.55, 0.3), new THREE.MeshStandardMaterial({ color: pastel[(i + 3) % pastel.length], roughness: .6 })); side.position.set(0.3, 0.2 + h * 0.275, 0.18); g.add(side); }
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.85, 0.05, 8, 40), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 }));
+    ring.rotation.x = Math.PI / 2; ring.position.y = 0.22; g.add(ring);
+    const beacon = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.4, 3.2, 12, 1, true), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+    beacon.position.y = 0.2 + h + 1.8; g.add(beacon);
+    const div = document.createElement("div"); div.className = "city-label";
+    div.textContent = isPaper ? `📄 ${doc.title.split(")")[0]})` : doc.title;   // 논문은 '저자 (연도)'만, 전체 제목은 마우스를 올리면
+    div.title = `${isPaper ? "논문 · " : doc.lang === "en" ? "영어 위키 · " : "위키 · "}${doc.title} · ${fmt(doc.chars)}자`; div.addEventListener("click", () => openDoc(doc.title));
+    const lab = new CSS2DObject(div); lab.position.y = 0.2 + h + 0.5; g.add(lab);
+    scene.add(g);
+    cities.set(doc.title, { group: g, dir: dir.clone(), top: 0.2 + h + 0.4, base, label: div, ring, beacon, chars: doc.chars });
+  });
+  // 항공 노선(링크) — 아주 옅게
+  const seen = new Set();
+  for (const [a, ts] of Object.entries(CORPUS.links)) for (const b of ts) {
+    if (!cities.has(a) || !cities.has(b)) continue;
+    const key = [a, b].sort().join("|"); if (seen.has(key)) continue; seen.add(key);
+    const pts = arcPoints(cities.get(a).dir, cities.get(b).dir, 0.5, 28);
+    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.07 }));
+    line.userData = { a, b }; routeLines.push(line); scene.add(line);
+  }
+}
+function arcPoints(d1, d2, lift, n){
+  const out = [], ang = d1.angleTo(d2), q1 = new THREE.Quaternion(), q = new THREE.Quaternion().setFromUnitVectors(d1, d2);
+  for (let i = 0; i <= n; i++) { const t = i / n; q1.identity().slerp(q, t); const d = d1.clone().applyQuaternion(q1); out.push(d.multiplyScalar(R * 1.05 + lift + Math.sin(Math.PI * t) * ang * 2.2)); }
+  return out;
+}
+
+/* ── 여행자(리서처) ── */
+const travelers = new Map();   // sec -> obj
+function makePlane(color){
+  const g = new THREE.Group();
+  const geo = new THREE.BufferGeometry();
+  const v = new Float32Array([ 0,0,.55, -.42,0,-.32, 0,.04,-.22,   0,0,.55, 0,.04,-.22, .42,0,-.32,   0,0,.55, 0,-.16,-.3, 0,.04,-.22 ]);
+  geo.setAttribute("position", new THREE.BufferAttribute(v, 3)); geo.computeVertexNormals();
+  const plane = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color, side: THREE.DoubleSide, flatShading: true, roughness: .45 }));
+  g.add(plane);
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.12, 14, 14), new THREE.MeshStandardMaterial({ color: 0xffe0c8 }));
+  head.position.set(0, 0.16, 0.02);
+  const hat = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.16, 12), new THREE.MeshStandardMaterial({ color })); hat.position.set(0, 0.32, 0.02);
+  const pack = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.14, 0.1), new THREE.MeshStandardMaterial({ color: 0x8b5e3c })); pack.position.set(0, 0.12, -0.13);
+  g.add(head, hat, pack);
+  g.scale.setScalar(1.25);
+  return g;
+}
+function updatePath(obj, visited){
+  const key = visited.map((v) => v.doc).join("|");
+  if (obj.pathKey === key) return; obj.pathKey = key;
+  if (obj.path) scene.remove(obj.path);
+  const dirs = [UP.clone(), ...visited.map((v) => cities.get(v.doc)?.dir).filter(Boolean)];
+  if (dirs.length < 2) { obj.path = null; return; }
+  const pts = []; for (let i = 1; i < dirs.length; i++) pts.push(...arcPoints(dirs[i - 1], dirs[i], 0.9 + obj.sec * 0.12, 36));
+  const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineDashedMaterial({ color: obj.color, dashSize: 0.32, gapSize: 0.18, transparent: true, opacity: .9 }));
+  line.computeLineDistances(); obj.path = line; scene.add(line);
+}
+function hqSlot(sec, n){ const a = (sec / Math.max(n, 1)) * Math.PI * 2 + 0.6; return new THREE.Vector3(Math.cos(a) * 1.7, HQ_BASE + 1.3, Math.sin(a) * 1.7); }
+function citySlot(title, sec){
+  const c = cities.get(title); if (!c) return null;
+  const local = new THREE.Vector3(Math.cos(sec * 1.7) * 0.75, c.top + 0.55 + (sec % 2) * 0.25, Math.sin(sec * 1.7) * 0.75);
+  return c.group.localToWorld(local.clone());
+}
+function ensureTraveler(sec, total){
+  if (travelers.has(sec)) return travelers.get(sec);
+  const color = colorOf(sec), g = makePlane(color);
+  g.position.copy(hqSlot(sec, total)); scene.add(g);
+  const div = document.createElement("div"); div.className = "trav-label"; div.style.setProperty("--c", color);
+  div.innerHTML = `<span class="nm">🎒 여행자 ${sec + 1}</span><span class="bub"></span>`;
+  div.style.pointerEvents = "auto"; div.style.cursor = "pointer"; div.addEventListener("click", () => selectTraveler(sec));
+  const lab = new CSS2DObject(div); lab.position.set(0, 0.55, 0); g.add(lab);
+  const trailGeo = new THREE.BufferGeometry(); trailGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(60 * 3), 3));
+  const trail = new THREE.Line(trailGeo, new THREE.LineBasicMaterial({ color, transparent: true, opacity: .55 })); scene.add(trail);
+  const t = { sec, g, div, bub: div.querySelector(".bub"), trail, trailPts: [], target: null, targetKey: "HQ", flight: null, color };
+  travelers.set(sec, t); return t;
+}
+function removeTraveler(sec){ const t = travelers.get(sec); if (!t) return; scene.remove(t.g); scene.remove(t.trail); if (t.path) scene.remove(t.path); t.g.traverse((o) => { if (o.isCSS2DObject) o.element.remove(); }); travelers.delete(sec); }
+function flyTo(t, dest, key, instant){
+  if (t.targetKey === key && !instant) return;
+  t.targetKey = key;
+  if (instant) { t.g.position.copy(dest); t.flight = null; t.trailPts = []; return; }
+  const from = t.g.position.clone(), d1 = from.clone().normalize(), d2 = dest.clone().normalize();
+  const ang = d1.angleTo(d2);
+  t.flight = { from, dest: dest.clone(), d1, d2, r1: from.length(), r2: dest.length(), ang, t: 0, dur: (0.7 + ang * 0.9) / playSpeed() };
+}
+function stepFlight(t, dt){
+  const f = t.flight;
+  if (!f) { t.g.position.y += Math.sin(clock.elapsedTime * 2.2 + t.sec) * 0.0025; return; }
+  f.t = Math.min(1, f.t + dt / f.dur);
+  const e = f.t < .5 ? 2 * f.t * f.t : 1 - Math.pow(-2 * f.t + 2, 2) / 2;
+  const q = new THREE.Quaternion().setFromUnitVectors(f.d1, f.d2.angleTo(f.d1) < 1e-4 ? f.d1 : f.d2);
+  const qi = new THREE.Quaternion().slerp(q, e);
+  const dir = f.d1.clone().applyQuaternion(qi);
+  const r = f.r1 + (f.r2 - f.r1) * e + Math.sin(Math.PI * e) * (1.2 + f.ang * 2.4);
+  const next = dir.multiplyScalar(r);
+  if (f.ang < 1e-4) next.lerpVectors(f.from, f.dest, e).add(new THREE.Vector3(0, Math.sin(Math.PI * e) * .8, 0));
+  const look = next.clone().add(next.clone().sub(t.g.position).normalize());
+  t.g.up.copy(next.clone().normalize()); t.g.position.copy(next); if (next.distanceTo(look) > 1e-3) t.g.lookAt(look);
+  t.trailPts.push(next.clone()); if (t.trailPts.length > 60) t.trailPts.shift();
+  if (f.t >= 1) { t.flight = null; t.g.position.copy(f.dest); }
+}
+function drawTrail(t){
+  const arr = t.trail.geometry.attributes.position.array, pts = t.trailPts;
+  for (let i = 0; i < 60; i++) { const p = pts[Math.max(0, pts.length - 60 + i)] || t.g.position; arr.set([p.x, p.y, p.z], i * 3); }
+  t.trail.geometry.attributes.position.needsUpdate = true;
+  if (!t.flight && t.trailPts.length) t.trailPts.shift();
+}
+
+/* ── 엽서(원고) ── */
+const postcards = new Map();   // sec -> {mesh, flight}
+function cardTexture(sec, chars, cites){
+  const c = document.createElement("canvas"); c.width = 256; c.height = 176; const x = c.getContext("2d");
+  x.fillStyle = "#fffaf2"; x.fillRect(0, 0, 256, 176);
+  x.strokeStyle = colorOf(sec); x.lineWidth = 12; x.strokeRect(6, 6, 244, 164);
+  x.fillStyle = colorOf(sec); x.fillRect(190, 18, 46, 54);
+  x.fillStyle = "#3a2d5c"; x.font = "bold 30px Jua, sans-serif"; x.fillText(`✉ 절 ${sec + 1}`, 22, 52);
+  x.font = "22px 'Gowun Dodum', sans-serif"; x.fillText(`${fmt(chars)}자`, 22, 100); x.fillText(`인용 ${cites}곳`, 22, 134);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; return tex;
+}
+function ensurePostcard(sec, total, from, chars, cites, instant){
+  if (postcards.has(sec)) return;
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 0.62), new THREE.MeshBasicMaterial({ map: cardTexture(sec, chars, cites), side: THREE.DoubleSide, transparent: true }));
+  const a = (sec / Math.max(total, 1)) * Math.PI * 2, dest = new THREE.Vector3(Math.cos(a) * 1.25, HQ_BASE + 3.9 + sec * 0.05, Math.sin(a) * 1.25);
+  mesh.position.copy(instant ? dest : from); scene.add(mesh);
+  postcards.set(sec, { mesh, from: from.clone(), dest, t: instant ? 1 : 0, dur: 1.6 / playSpeed() });
+}
+function clearPostcards(){ postcards.forEach((p) => scene.remove(p.mesh)); postcards.clear(); }
+
+/* ───────────────────────── 상태: 이벤트 0..i 를 접어서 만든다 ───────────────────────── */
+function derive(events, idx){
+  const S = { mode: null, run: null, phase: "idle", question: "", settings: null, plan: null, tasks: [], T: {},
+    coord: { chars: 0, calls: 0, status: "출발 준비 중" }, report: "", log: [], error: null, done: false };
+  const T = (sec) => S.T[sec];
+  for (let i = 0; i <= idx && i < events.length; i++) {
+    const e = events[i];
+    switch (e.kind) {
+      case "run_start": if (e.window_chars) { WINDOW_CHARS = e.window_chars; WINDOW_NOTE = e.window_note; } Object.assign(S, { mode: e.mode, run: e, question: e.question, settings: e.settings, phase: "plan" }); S.coord.status = "일정표 짜는 중… 📋"; break;
+      case "node_start":
+        if (e.node === "plan") S.coord.status = `문서 카드 ${fmt(e.cards_chars)}자로 일정 짜는 중`;
+        if (e.node === "researcher" && T(e.section)) T(e.section).status = "출발 ✈️";
+        if (e.node === "synthesize") { S.phase = "synth"; S.coord.status = "엽서를 모아 가이드북 제본 중 📘"; }
+        break;
+      case "node_end":
+        if (e.node === "plan") { S.plan = e.plan; S.coord.status = `일정표 완성 — ${e.plan.목차.length}개 구역`; S.log.push(...(e.log || [])); }
+        if (e.node === "researcher" && T(e.section)) {
+          const t = T(e.section), self = e.result.충분 === false ? ` · 부족 신고: ${(e.result.부족 || "").slice(0, 40)}` : e.result.충분 ? " · 충분" : "";
+          if ((e.round || 1) > 1 && t.draft) { t.draft2 = e.result; t.status = `${e.round}바퀴 엽서 도착 — 본사 점검 대기${self}`; }
+          else Object.assign(t, { draft: e.result.본문, cites: e.result.인용, read: e.result.읽은문서, done: true, status: `엽서 발송 완료 ✉️${self}` });
+          S.log.push(...(e.log || []));
+        }
+        if (e.node === "synthesize") { S.report = e.report; S.log.push(...(e.log || [])); S.coord.status = "가이드북 완성! 🎉"; }
+        break;
+      case "dispatch":
+        S.phase = "research";
+        if ((e.round || 1) > 1) {
+          for (const task of e.tasks) if (S.T[task.번호]) Object.assign(S.T[task.번호], { task, avoid: task.피하기 || [], round: e.round, status: `${e.round}바퀴 재출발 🔁 (남의 구역 ${(task.피하기 || []).length}곳 피함)` });
+          S.coord.status = `부족 신고한 ${e.tasks.length}절만 다시 보냄 🔁`;
+          break;
+        }
+        S.tasks = e.tasks;
+        for (const task of e.tasks) S.T[task.번호] = { sec: task.번호, task, status: "대기", at: null, visited: [], picks: [], candidates: [], avoid: task.피하기 || [], chars: 0, calls: 0, raw: 0, notes: 0, draft: null, cites: [], done: false, error: null };
+        S.coord.status = `여행자 ${e.tasks.length}명 동시 출발! 🛫`;
+        break;
+      case "call_start":
+        if (e.section == null) { S.coord.chars += e.sent_chars; S.coord.calls++; }
+        else if (T(e.section)) {
+          const t = T(e.section); t.chars += e.sent_chars; t.calls++;
+          if (e.step === "read") { t.at = e.doc; t.status = `«${e.doc}» 취재 중 📖`; t.raw += e.user_chars; t.reading = e.doc; }
+          if (e.step === "pick") { t.status = e.candidates.length ? `다음 행선지 고민 중 🤔 (후보 ${e.candidates.length}곳)` : "다음 행선지 고르는 중 🤔"; t.candidates = e.candidates; }
+          if (e.step === "write") { t.status = "엽서 쓰는 중 ✍️"; t.reading = null; }
+        }
+        break;
+      case "call_end":
+        if (e.section != null && T(e.section)) {
+          const t = T(e.section);
+          if (e.step === "read") { t.visited.push({ doc: e.doc, note: e.reply }); t.notes += e.reply_chars; t.status = `«${e.doc}» 메모 ${fmt(e.reply_chars)}자 📝`; t.reading = null; }
+          if (e.step === "pick") { const pick = parseObj(e.reply)["문서"] || null; t.picks.push({ candidates: t.candidates, pick }); t.candidates = []; t.status = pick ? `다음 행선지 «${pick}» ✈️` : "더 갈 곳 없음 — 귀환 준비"; }
+        }
+        break;
+      case "call_error": case "node_error":
+        if (e.section != null && T(e.section)) { T(e.section).error = e.error; T(e.section).status = "결항! ⛈️"; }
+        break;
+      case "review": S.coord.status = e.gaps.length ? `④ 점검: 부족 ${e.gaps.length}절 → 재위임` : "④ 점검: 다시 보낼 절 없음"; S.log.push(...(e.log || [])); break;
+      case "decision":
+        if (T(e.section)) {
+          const t = T(e.section);
+          if (e.accepted && t.draft2) Object.assign(t, { draft: t.draft2.본문, cites: t.draft2.인용, read: t.draft2.읽은문서 });
+          t.status = e.accepted ? `${e.round}바퀴 원고 받음 ✅ ${e.reason}` : `${e.round}바퀴 원고 버림 ✋ ${e.reason} — 첫 원고 유지`;
+        }
+        break;
+      case "metrics": S.recorded = e.metrics; break;
+      case "run_end": S.done = true; S.phase = "done"; S.report = e.report; S.log = e.log; break;
+      case "run_error": S.error = e.error; S.phase = "error"; S.coord.status = "여행 중단 ⛈️"; break;
+    }
+  }
+  return S;
+}
+
+/* ───────────────────────── 디버거 ───────────────────────── */
+const D = { events: [], idx: -1, playing: false, timer: 0, runId: null, live: false, source: null, follow: true, selected: null,
+  bps: new Set(["error"]), tab: "event", status: null };
+const playSpeed = () => Number($("#speed").value) || 1;
+const BP_DEFS = [["plan","📋 기획"],["dispatch","🛫 배치"],["pick","🤔 고르기"],["read","📖 취재"],["write","✍️ 엽서"],["edit","📘 제본"],["error","⛈️ 오류"]];
+function bpKeyHit(e){
+  if (D.bps.has("error") && /error/.test(e.kind)) return true;
+  if (D.bps.has("dispatch") && e.kind === "dispatch") return true;
+  if (e.kind === "call_start" && D.bps.has(e.step)) return true;
+  if (e.section != null && D.bps.has(`s${e.section}`) && e.kind === "call_start") return true;
+  return false;
+}
+function renderBps(){
+  const nSec = Math.max(0, ...D.events.filter((e) => e.kind === "dispatch").map((e) => e.tasks.length));
+  const items = [...BP_DEFS, ...Array.from({ length: nSec }, (_, i) => [`s${i}`, `🎒${i + 1}`])];
+  const cam = $("#cam"), keep = cam.value;
+  cam.innerHTML = `<option value="free">🎥 자유 시점</option><option value="auto">🎬 자동 — 지금 주인공 따라가기</option><option value="hq">🧭 본사</option>` +
+    Array.from({ length: nSec }, (_, i) => `<option value="s${i}">🎒 여행자 ${i + 1} 따라가기</option>`).join("");
+  cam.value = [...cam.options].some((o) => o.value === keep) ? keep : "free";
+  $("#bps").innerHTML = `<span class="lab">중단점 — 켠 단계에서 ⏭ 가 멈춥니다</span>` +
+    items.map(([k, l]) => `<button class="bp ${D.bps.has(k) ? "on" : ""}" data-bp="${k}">${l}</button>`).join("") +
+    `<button class="bp" data-bp="__clear">지우기</button>`;
+}
+$("#bps").addEventListener("click", (ev) => {
+  const k = ev.target.dataset.bp; if (!k) return;
+  if (k === "__clear") D.bps.clear(); else D.bps.has(k) ? D.bps.delete(k) : D.bps.add(k);
+  renderBps(); drawTicks();
+});
+function setIdx(i, opts = {}){
+  const prev = D.idx;
+  D.idx = Math.max(-1, Math.min(D.events.length - 1, i));
+  D.follow = D.idx === D.events.length - 1;
+  const instant = opts.instant ?? Math.abs(D.idx - prev) > 1;
+  render(instant);
+}
+function caption(e){
+  if (!e) return "▶ 재생하거나 → 로 한 단계씩 넘겨 보세요";
+  const who = e.section == null ? "🧭 본사" : `🎒 여행자 ${e.section + 1}`;
+  switch (e.kind) {
+    case "run_start": return `🛫 여행 시작 — “${e.question}”`;
+    case "node_start": return e.node === "plan" ? `🧭 본사: 문서 카드 ${fmt(e.cards_chars)}자를 펼치고 일정표를 짠다` : e.node === "researcher" ? `${who}: 「${e.task.절}」 구역으로 출발` : `📘 편집자: 엽서 ${e.sections}장을 모은다`;
+    case "node_end": return e.node === "plan" ? `🧭 본사: 일정표 완성 — ${e.plan.목차.length}개 구역` : e.node === "researcher" ? `✉️ ${who}: 엽서 발송 — ${fmt(e.result.본문.length)}자 · 인용 ${e.result.인용.length}곳` : `📘 가이드북 완성 — ${fmt(e.report.length)}자`;
+    case "dispatch": return (e.round || 1) > 1 ? `🔁 본사: ${e.round}바퀴 — 부족한 ${e.tasks.length}절만 다시 파견 (다른 절이 읽은 도시까지 피하게)` : `🛫 본사: 여행자 ${e.tasks.length}명 동시 파견 (남의 구역 알려 줌)`;
+    case "call_start":
+      if (e.step === "read") return `${who}: «${e.doc}» 도착 — 원문 ${fmt(e.user_chars)}자 취재`;
+      if (e.step === "pick") return e.candidates.length ? `${who}: 다음 행선지 고민 (후보 ${e.candidates.length}곳)` : `${who}: 다음 행선지 고르기 (후보 목록은 기록하지 않았어요)`;
+      if (e.step === "write") return `${who}: 메모 ${e.notes_from.length}장으로 엽서 쓰기`;
+      return `${who}: ${STEP_LABEL[e.step]} 요청 (${fmt(e.sent_chars)}자 보냄)`;
+    case "call_end":
+      if (e.step === "pick") { const p = parseObj(e.reply)["문서"]; return `${who}: ${p ? `«${p}» 로 가기로 함` : "더 갈 곳이 없다"}`; }
+      if (e.step === "read") return `${who}: «${e.doc}» 메모 ${fmt(e.reply_chars)}자 (${e.ms}ms)`;
+      return `${who}: ${STEP_LABEL[e.step]} 끝 — 답 ${fmt(e.reply_chars)}자 (${e.ms}ms)`;
+    case "call_error": case "node_error": return `⛈️ ${who}: ${e.error}`;
+    case "review": return e.gaps.length ? `🧭 본사 ④ 점검: 부족 신고한 절 ${e.gaps.map((g) => g + 1).join("·")} 다시 보냄` : "🧭 본사 ④ 점검: 다시 보낼 절 없음 → 종합으로";
+    case "decision": return `${who}: ${e.round}바퀴 원고 ${e.accepted ? "받음 ✅" : "버림 ✋"} — ${e.reason}`;
+    case "metrics": return `📊 평가: 경보 ${e.metrics.경보합} · 근거율 ${e.metrics.근거율}% · 중복 ${e.metrics.중복률}%`;
+    case "run_end": return "🎉 여행 끝 — 가이드북이 나왔습니다";
+    case "run_error": return `⛈️ 여행 중단 — ${e.error}`;
+  }
+  return e.kind;
+}
+function tick(){
+  clearTimeout(D.timer);
+  if (!D.playing) return;
+  if (D.idx >= D.events.length - 1) { if (!D.live) { D.playing = false; renderTransport(); } else D.timer = setTimeout(tick, 250); return; }
+  setIdx(D.idx + 1, { instant: false });
+  if (D.events[D.idx] && bpKeyHit(D.events[D.idx]) && D.contMode) { D.playing = false; D.contMode = false; renderTransport(); toast(`⏸ 중단점: ${caption(D.events[D.idx])}`); return; }
+  const e = D.events[D.idx], base = e && e.kind === "call_start" && e.step === "read" ? 1300 : 700;
+  D.timer = setTimeout(tick, base / playSpeed());
+}
+function play(on){ D.playing = on ?? !D.playing; D.contMode = false; if (D.playing && D.idx >= D.events.length - 1 && !D.live) setIdx(-1, { instant: true }); renderTransport(); tick(); }
+function cont(){
+  for (let i = D.idx + 1; i < D.events.length; i++) if (bpKeyHit(D.events[i])) { setIdx(i, { instant: i - D.idx > 1 }); toast(`⏸ 중단점: ${caption(D.events[i])}`); return; }
+  if (D.live) { D.contMode = true; D.playing = true; renderTransport(); tick(); return; }
+  setIdx(D.events.length - 1); toast("중단점이 더 없어 끝까지 갔습니다");
+}
+function renderTransport(){ $("#bPlay").textContent = D.playing ? "⏸" : "▶"; }
+$("#bFirst").onclick = () => { play(false); setIdx(-1, { instant: true }); };
+$("#bPrev").onclick = () => { play(false); setIdx(D.idx - 1, { instant: true }); };
+$("#bNext").onclick = () => { play(false); setIdx(D.idx + 1, { instant: false }); };
+$("#bPlay").onclick = () => play();
+$("#bCont").onclick = () => { play(false); cont(); };
+$("#scrub").oninput = (ev) => { play(false); setIdx(Number(ev.target.value), { instant: true }); };
+addEventListener("keydown", (ev) => {
+  if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+  const k = ev.key;
+  if (k === "ArrowRight" || (k === "F10" && !ev.shiftKey)) { ev.preventDefault(); $("#bNext").click(); }
+  else if (k === "ArrowLeft" || (k === "F10" && ev.shiftKey)) { ev.preventDefault(); $("#bPrev").click(); }
+  else if (k === " ") { ev.preventDefault(); play(); }
+  else if (k === "F5") { ev.preventDefault(); $("#bCont").click(); }
+  else if (k === "Home") { ev.preventDefault(); $("#bFirst").click(); }
+  else if (k === "End") { ev.preventDefault(); play(false); setIdx(D.events.length - 1, { instant: true }); }
+});
+function drawTicks(){
+  const cv = $("#ticks"), w = cv.clientWidth, h = cv.clientHeight; cv.width = w * devicePixelRatio; cv.height = h * devicePixelRatio;
+  const x = cv.getContext("2d"); x.scale(devicePixelRatio, devicePixelRatio); x.clearRect(0, 0, w, h);
+  const n = D.events.length; if (!n) return;
+  D.events.forEach((e, i) => {
+    const px = (i + 0.5) / n * w;
+    x.fillStyle = /error/.test(e.kind) ? "#ff4d4d" : colorOf(e.section);
+    const tall = e.kind === "call_start" ? (e.step === "read" ? 16 : 11) : e.kind.startsWith("node") || e.kind === "dispatch" ? 20 : 7;
+    x.globalAlpha = i <= D.idx ? 1 : 0.38; x.fillRect(px - 1, h - tall - 1, Math.max(2, w / n - 1), tall);
+    if (bpKeyHit(e)) { x.globalAlpha = 1; x.fillStyle = "#ff6b6b"; x.beginPath(); x.arc(px, 4, 2.6, 0, 7); x.fill(); }
+  });
+  if (D.idx >= 0) { const px = (D.idx + 0.5) / n * w; x.globalAlpha = 1; x.fillStyle = "#fff"; x.fillRect(px - 1, 0, 2, h); }
+}
+$("#ticks").addEventListener("click", (ev) => { const r = ev.target.getBoundingClientRect(); play(false); setIdx(Math.floor((ev.clientX - r.left) / r.width * D.events.length), { instant: true }); });
+
+/* ───────────────────────── 그리기 ───────────────────────── */
+let S = derive([], -1);
+function render(instant){
+  S = derive(D.events, D.idx);
+  const e = D.events[D.idx];
+  if (e && e.section != null && !D.pinned) D.selected = e.section;
+  syncScene(instant);
+  renderBadges(); renderItin(); renderPane(); drawTicks();
+  $("#scrub").max = D.events.length - 1; $("#scrub").value = D.idx;
+  $("#caption").innerHTML = `<span class="ix">${D.idx + 1} / ${D.events.length}</span>${esc(caption(e))}`;
+}
+function syncScene(instant){
+  const total = S.tasks.length;
+  for (const sec of [...travelers.keys()]) if (!S.T[sec]) removeTraveler(sec);
+  for (const [secStr, t] of Object.entries(S.T)) {
+    const sec = Number(secStr), obj = ensureTraveler(sec, total);
+    const dest = t.at ? citySlot(t.at, sec) : hqSlot(sec, total);
+    if (dest) flyTo(obj, dest, t.at || "HQ", instant);
+    obj.bub.textContent = t.status;
+    updatePath(obj, t.visited);
+    if (obj.path) obj.path.material.opacity = D.selected == null || D.selected === sec ? .9 : .3;
+    obj.div.style.opacity = D.selected == null || D.selected === sec ? 1 : 0.55;
+  }
+  // 도시 표시: 지금 취재 중 · 후보 · 피하기 · 다녀감
+  const sel = S.T[D.selected];
+  cities.forEach((c, title) => {
+    c.label.className = "city-label"; c.label.style.removeProperty("--c");
+    c.ring.material.opacity = 0; c.beacon.material.opacity = 0;
+  });
+  for (const t of Object.values(S.T)) for (const v of t.visited) { const c = cities.get(v.doc); if (c) { c.label.classList.add("visited"); c.label.style.setProperty("--c", colorOf(t.sec)); c.ring.material.color.set(colorOf(t.sec)); c.ring.material.opacity = .75; } }
+  if (sel) for (const a of sel.avoid) cities.get(a)?.label.classList.add("avoid");
+  for (const t of Object.values(S.T)) {
+    for (const cand of t.candidates) { const c = cities.get(cand); if (c) { c.label.classList.add("hot"); c.ring.material.color.set("#ffd27a"); c.ring.material.opacity = .9; } }
+    if (t.reading) { const c = cities.get(t.reading); if (c) { c.label.classList.add("reading"); c.label.style.setProperty("--c", colorOf(t.sec)); c.beacon.material.color.set(colorOf(t.sec)); c.beacon.material.opacity = .35; } }
+  }
+  // 노선 강조: 선택한 여행자가 있는 도시에서 나가는 길
+  const here = sel?.at;
+  routeLines.forEach((l) => { const on = here && (l.userData.a === here || l.userData.b === here); l.material.opacity = on ? .55 : .07; l.material.color.set(on ? colorOf(sel.sec) : "#ffffff"); });
+  // 엽서와 가이드북
+  for (const sec of [...postcards.keys()]) if (!S.T[sec]?.done) { scene.remove(postcards.get(sec).mesh); postcards.delete(sec); }
+  for (const t of Object.values(S.T)) if (t.done) ensurePostcard(t.sec, total, travelers.get(t.sec)?.g.position || hq.position, t.draft.length, t.cites.length, instant);
+  bookTarget = S.report ? 1 : 0.001;
+  hqBubble.textContent = S.coord.status;
+  controls.autoRotate = !D.playing && !D.live && S.phase !== "research";
+}
+function renderBadges(){
+  const run = S.run, st = D.status, html = [];
+  const mode = run ? run.mode : st?.default_mode;
+  if (mode === "live") html.push(`<span class="pill live"><b>🔴 실제 호출</b> ${esc(run?.model || st?.model)}</span>`);
+  else if (mode) html.push(`<span class="pill replay"><b>🟢 저장된 기록 재생</b> ${esc(run?.label || "output/runs.jsonl")}</span>`);
+  if (!run && st) html.push(`<span class="pill">📼 모델 호출 없음 — 기록 재생 전용</span>`);
+  if (D.runId) html.push(`<span class="pill view"><b>${run?.run_kind === "single" ? "👤 단일 대조군" : "👥 다중 에이전트"}</b> ${esc(D.runId)}</span>`);
+  if (run?.settings) { const s = run.settings; html.push(`<span class="pill">🎒 ${s.max_sections}명 · 🏙️ ${s.budget}곳${s.use_roles ? "" : " · 역할끔"}${s.assign_seeds ? "" : " · 배정끔"}${s.respect_zones ? "" : " · 구역끔"}${run.incident != null ? ` · ⛈️ 결항 ${Number(run.incident) + 1}` : ""}</span>`); }
+  $("#badges").innerHTML = html.join("");
+}
+function selectTraveler(sec){ D.selected = sec; D.pinned = true; render(true); setTimeout(() => D.pinned = false, 4000); }
+function renderItin(){
+  const ts = Object.values(S.T);
+  let h = `<h3>📋 여행 일정표</h3><div class="q">${esc(S.question || "아래 ▶ 를 누르거나 → 로 한 단계씩 넘기면 여행이 시작돼요. 다른 실행은 ⏪ 다른 여행 고르기에서.")}</div>`;
+  const pct = (n) => Math.min(100, n / WINDOW_CHARS * 100);
+  h += `<div class="tcard coord" style="--c:${GOLD}"><div class="hd"><div class="av">🧭</div><div><div class="ti">본사 · 코디네이터</div><div class="ro">${esc(S.coord.status)}</div></div></div>
+        <div class="meter" title="본사가 본 글자 ${fmt(S.coord.chars)}자 / 창 ${fmt(WINDOW_CHARS)}자"><i style="width:${pct(S.coord.chars)}%"></i></div>
+        <div class="ro" style="margin-top:4px">본 글자 ${fmt(S.coord.chars)}자 · 호출 ${S.coord.calls}회 (원문은 한 글자도 안 봄)</div></div>`;
+  for (const t of ts) {
+    const stops = t.visited.map((v, i) => `<span class="stamp ${i === 0 && t.task.시작문서 === v.doc ? "seed" : ""} ${t.reading === v.doc ? "now" : ""}">${i === 0 && t.task.시작문서 === v.doc ? "📍" : "🛂"} ${esc(shortName(v.doc))}</span>`).join("");
+    const now = t.reading && !t.visited.some((v) => v.doc === t.reading) ? `<span class="stamp now">📖 ${esc(shortName(t.reading))}</span>` : "";
+    h += `<div class="tcard ${D.selected === t.sec ? "sel" : ""}" style="--c:${colorOf(t.sec)}" data-sec="${t.sec}">
+      <div class="hd"><div class="av">${t.sec + 1}</div><div><div class="ti">${esc(t.task.절)}</div><div class="ro">${esc(t.task.역할)} · 첫 도시 ${t.task.시작문서 ? `«${esc(shortName(t.task.시작문서))}»` : "자율"}</div></div></div>
+      <div class="ro" style="margin-top:6px">${esc(t.status)}</div>
+      <div class="stamps">${stops}${now}</div>
+      <div class="meter" title="이 여행자가 본 글자 / 창"><i style="width:${pct(t.chars)}%"></i></div>
+      <div class="ro" style="margin-top:4px">본 글자 ${fmt(t.chars)}자 · 원문 ${fmt(t.raw)}자 → 엽서 ${t.draft ? fmt(t.draft.length) + "자" : "—"}</div></div>`;
+  }
+  $("#itin").innerHTML = h;
+}
+$("#itin").addEventListener("click", (ev) => { const c = ev.target.closest(".tcard[data-sec]"); if (c) selectTraveler(Number(c.dataset.sec)); });
+
+document.querySelectorAll(".tab").forEach((b) => b.onclick = () => { D.tab = b.dataset.tab; document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("on", x === b)); renderPane(); });
+function citeHtml(text, readSet){
+  return esc(text).replace(/«([^»]+)»/g, (m, t) => { const raw = t.replace(/&amp;/g, "&"); const ok = readSet.has(raw); return `<button class="cite ${ok ? "" : "bad"}" data-doc="${t}" title="${ok ? "실제로 읽은 문서" : "아무도 읽지 않은 문서 — 허위 인용"}">«${t}»</button>`; });
+}
+function readSet(){ return new Set(Object.values(S.T).flatMap((t) => t.visited.map((v) => v.doc))); }
+function renderPane(){
+  const p = $("#pane"), e = D.events[D.idx];
+  if (D.tab === "event") {
+    if (!e) { p.innerHTML = `<div class="empty">🧳 아직 이벤트가 없어요.<br>▶ 재생하거나 → 로 넘기면<br>여기에 한 단계씩 보여 드려요.<br><br><kbd>←</kbd><kbd>→</kbd> 한 단계 · <kbd>Space</kbd> 재생 · <kbd>F5</kbd> 다음 중단점</div>`; return; }
+    const who = e.section == null ? `<span class="sec-chip" style="--c:${GOLD}">🧭 본사</span>` : `<span class="sec-chip" style="--c:${colorOf(e.section)}">🎒 여행자 ${e.section + 1} · 절 ${e.section}</span>`;
+    const icon = { run_start: "🛫", run_end: "🎉", run_error: "⛈️", dispatch: "🛫", call_error: "⛈️", node_error: "⛈️" }[e.kind] || { plan: "📋", read: "📖", pick: "🤔", write: "✍️", edit: "📘" }[e.step] || (e.node === "researcher" ? "🎒" : e.node === "synthesize" ? "📘" : "🧭");
+    const kv = [["종류", e.kind + (e.step ? ` · ${e.step}` : "") + (e.node ? ` · ${e.node}` : "")], ["스레드", e.thread], ["시각", `+${fmt(e.t)}ms`]];
+    if (e.doc) kv.push(["도시(문서)", e.user_chars != null ? `«${e.doc}» · 원문 ${fmt(e.user_chars)}자` : `«${e.doc}»`]);
+    if (e.sent_chars != null) kv.push(["보낸 글자", `${fmt(e.sent_chars)}자${e.truncated ? " (60,000자에서 잘림)" : ""}`]);
+    if (e.ms != null) kv.push(["걸린 시간", `${fmt(e.ms)}ms`]);
+    let body = "";
+    if (e.kind === "call_start" && e.step === "pick") body = `<h3>🤔 후보 ${e.candidates.length}곳</h3><div class="box">${esc(e.candidates.join(", ")) || "(없음)"}</div><div class="hint" style="margin-top:6px">이미 읽음: ${esc(e.already.join(", ") || "없음")}</div>`;
+    if (e.kind === "call_start" && e.step === "read") body = `<h3>📋 취재 지시</h3><div class="box">${esc(e.brief)}</div><button class="btn" style="margin-top:8px" data-open="${esc(e.doc)}">📄 «${esc(e.doc)}» 원문 보기</button>`;
+    if (e.kind === "call_start" && e.step === "write") body = `<h3>🗂️ 엽서 재료</h3><div class="box">${esc(e.notes_from.join(" · "))}</div>`;
+    if (e.kind === "call_start" && e.user_preview) body = `<h3>보낸 내용 앞부분</h3><div class="box">${esc(e.user_preview)}…</div>`;
+    if (e.kind === "call_end") body = `<h3>💬 모델의 답</h3><div class="box">${e.step === "write" ? citeHtml(parseObj(e.reply)["본문"] || e.reply, readSet()) : esc(e.reply)}</div>`;
+    if (e.kind === "node_end" && e.node === "plan") body = tocHtml(e.plan);
+    if (e.kind === "dispatch") body = `<h3>🛫 파견 지시</h3>` + e.tasks.map((t) => `<div class="tcard" style="--c:${colorOf(t.번호)};cursor:default"><div class="ti">🎒 ${t.번호 + 1}. ${esc(t.절)}</div><div class="ro">${esc(t.역할)} · 첫 도시 «${esc(t.시작문서 || "자율")}» · 예산 ${t.예산}곳</div><div class="ro" style="margin-top:4px">🚩 피하기: ${esc((t.피하기 || []).join(", ") || "없음")}</div></div>`).join("");
+    if (e.kind === "node_end" && e.node === "researcher") body = `<h3>✉️ 올라간 엽서 (원문은 현지에 남음)</h3><div class="box">${citeHtml(e.result.본문, readSet())}</div>`;
+    if (/error/.test(e.kind)) body = `<div class="warn">${esc(e.error)}</div>` + (e.trace ? `<details><summary>자세히</summary><div class="box">${esc(e.trace)}</div></details>` : "");
+    if (e.kind === "run_start") { kv.push(["질문", e.question], ["모델", e.model], ["코퍼스", e.corpus]); if (e.warning) body = `<div class="warn">⚠️ ${esc(e.warning)}</div>`; }
+    p.innerHTML = `<div class="evhead"><span class="big">${icon}</span><div><h2>${esc(caption(e))}</h2>${who}</div></div>
+      <dl class="kv">${kv.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>${body}`;
+  } else if (D.tab === "vars") {
+    const rows = [{ name: "🧭 본사", c: GOLD, n: S.coord.chars, sub: `${S.coord.calls}회` }, ...Object.values(S.T).map((t) => ({ name: `🎒 여행자 ${t.sec + 1}`, c: colorOf(t.sec), n: t.chars, sub: `${t.calls}회` }))];
+    const max = Math.max(WINDOW_CHARS * 0.5, ...rows.map((r) => r.n));
+    let h = `<h3>🔒 컨텍스트 격리 — 누가 몇 글자를 봤나</h3><div class="hint">막대 끝 = 창의 ${Math.round(max / WINDOW_CHARS * 100)}% · 창 ≈ ${fmt(WINDOW_CHARS)}자 (${esc(WINDOW_NOTE)})</div>`;
+    h += rows.map((r) => `<div class="bar" style="--c:${r.c}"><span>${r.name}</span><span class="tr"><i style="width:${r.n / max * 100}%"></i></span><span class="num">${fmt(r.n)}자</span></div>`).join("");
+    const totalSub = Object.values(S.T).reduce((a, t) => a + t.chars, 0);
+    if (totalSub) h += `<div class="hint">여행자 합계 ${fmt(totalSub)}자 vs 본사 ${fmt(S.coord.chars)}자 — 본사는 원문 대신 카드와 엽서 첫머리만 봅니다.</div>`;
+    h += S.plan ? tocHtml(S.plan) : "";
+    for (const t of Object.values(S.T)) {
+      h += `<details ${D.selected === t.sec ? "open" : ""}><summary><span class="sec-chip" style="--c:${colorOf(t.sec)}">🎒 ${t.sec + 1}</span> ${esc(t.task.절)}</summary>
+        <dl class="kv"><dt>status</dt><dd>${esc(t.status)}</dd><dt>at</dt><dd>${esc(t.at || "본사")}</dd><dt>피하기</dt><dd>${esc(t.avoid.join(", ") || "[]")}</dd>
+        <dt>candidates</dt><dd>${esc(t.candidates.join(", ") || "[]")}</dd><dt>picks</dt><dd>${esc(t.picks.map((p) => p.pick || "null").join(" → ") || "[]")}</dd>
+        <dt>원문 → 메모</dt><dd>${fmt(t.raw)}자 → ${fmt(t.notes)}자</dd></dl>
+        ${t.visited.map((v) => `<div class="hint">📝 «${esc(v.doc)}»</div><div class="box" style="max-height:140px">${esc(v.note)}</div>`).join("")}
+        ${t.error ? `<div class="warn">${esc(t.error)}</div>` : ""}</details>`;
+    }
+    p.innerHTML = h;
+  } else if (D.tab === "report") {
+    if (!S.report) { p.innerHTML = `<div class="empty">📘 아직 가이드북이 없어요.<br>여행자들의 엽서가 모두 도착하면 편집자가 묶어요.</div>`; return; }
+    const rs = readSet();
+    p.innerHTML = `<div class="report">` + S.report.split(/\n\n+/).map((blk) => {
+      if (blk.startsWith("# ")) return `<h1>${esc(blk.slice(2))}</h1>`;
+      if (blk.startsWith("## ")) { const [hd, ...rest] = blk.split("\n"); return `<h2>${esc(hd.slice(3)).replace(/_\((.+?)\)_/, "<small style='color:var(--ink-3)'>($1)</small>")}</h2>${rest.length ? `<p>${citeHtml(rest.join(" "), rs)}</p>` : ""}`; }
+      return `<p>${citeHtml(blk, rs)}</p>`;
+    }).join("") + `</div><div class="hint">노란 «인용»을 누르면 원문이 열립니다. 빨간 줄은 아무도 읽지 않은 문서(허위 인용)예요.</div>`;
+  } else if (D.tab === "score") {
+    p.innerHTML = scoreHtml();
+  } else {
+    p.innerHTML = S.log.length ? S.log.map((l) => `<div class="logline">${esc(l)}</div>`).join("") : `<div class="empty">📜 노드가 끝날 때마다 한 줄씩 쌓여요.</div>`;
+  }
+}
+/* 정답표·판정 모델 없이 코드로 세는 지표 — 만들어진 글과 실제로 읽은 문서만 본다 */
+function sentencesOf(text){
+  // 리서처는 «인용»을 마침표 뒤에 붙인다. 그대로 자르면 인용이 다음 문장 몫이 되므로, 앞 문장 안으로 옮긴 뒤 자른다
+  const moved = text.replace(/([.!?])\s*((?:«[^»]+»\s*)+)/g, (m, dot, cites) => ` ${cites.trim()}${dot}\n`);
+  return moved.split(/(?<=[.!?])\s+|\n/).map((x) => x.trim()).filter((x) => x.length > 15 && !x.startsWith("#"));
+}
+function computeMetrics(){
+  const drafts = Object.values(S.T).filter((t) => t.draft);
+  const text = S.report || drafts.map((t) => t.draft).join("\n");
+  const docs = new Set(CORPUS.docs.map((d) => d.title));
+  const reads = Object.values(S.T).flatMap((t) => t.visited.map((v) => v.doc));
+  const readU = new Set(reads);
+  const sents = sentencesOf(text);
+  const cited = [...text.matchAll(/«([^»]+)»/g)].map((m) => m[1]);
+  const backed = sents.filter((x) => [...x.matchAll(/«([^»]+)»/g)].some((m) => docs.has(m[1])));
+  const counts = {}; cited.forEach((c) => counts[c] = (counts[c] || 0) + 1);
+  const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  return {
+    source: S.report ? "가이드북" : drafts.length ? `엽서 ${drafts.length}장(가이드북 전)` : null,
+    sents: sents.length, backed: backed.length, cited: cited.length,
+    rate: sents.length ? backed.length / sents.length * 100 : 0,
+    fake: [...new Set(cited.filter((c) => !readU.has(c)))],
+    unused: [...readU].filter((d) => !counts[d]),
+    skew: cited.length ? top[1] / cited.length * 100 : 0, skewDoc: top?.[0],
+    dup: reads.length ? (1 - readU.size / reads.length) * 100 : 0, reads: reads.length, readU: readU.size,
+  };
+}
+function scoreHtml(){
+  const m = computeMetrics();
+  if (!m.source) return `<div class="empty">📊 엽서가 하나라도 도착하면<br>정답표 없이 코드로 센 지표를 보여 드려요.</div>`;
+  const card = (cls, name, val, desc) => `<div class="metric ${cls}"><span class="n">${name}</span><span class="v">${val}</span><span class="d">${desc}</span></div>`;
+  const rec = S.recorded ? `<div class="hint" style="margin:-2px 0 8px">graph.py 가 기록한 값(metrics.py): 경보 ${S.recorded.경보합} · 근거율 ${S.recorded.근거율}% · 중복 ${S.recorded.중복률}% · 편중 ${S.recorded.인용편중}% · 읽고 안 쓴 ${(S.recorded.읽고안쓴 || []).length}건</div>` : "";
+  return rec + `<h3>📊 여행 결산 <small class="hint">— ${esc(m.source)} 기준 · 정답표도 판정 모델도 쓰지 않아요</small></h3>
+  <div class="hint" style="margin-bottom:6px">🚨 경보 — 0이어야 해요</div>` +
+  card(m.fake.length ? "alarm-bad" : "alarm-ok", "허위 인용", m.fake.length ? `🚨 ${m.fake.length}` : "✅ 0",
+    `아무도 읽지 않은 문서를 인용했나. 0이 아니면 볼 것도 없이 탈락 → 리서처의 엽서 쓰기(WRITE).${m.fake.length ? `<br>«${esc(m.fake.join("», «"))}»` : ""}`) +
+  `<div class="hint" style="margin:12px 0 6px">📈 신호 — 설정끼리 높낮이를 견줘요 (순위표 아님)</div>` +
+  card("", "근거 비율", `${m.rate.toFixed(1)}%`, `문장 ${m.sents}개 중 «인용» 붙은 문장 ${m.backed}개. 낮으면 자료 없이 쓴 대목이 많다 → 도시 예산(절 예산)·취재 메모.`) +
+  card("", "중복률", `${m.dup.toFixed(1)}%`, `취재 ${m.reads}번 중 서로 다른 도시 ${m.readU}곳. 높으면 여행자끼리 같은 도시를 겹쳐 갔다 → 🚩 피하기 목록(구역)·첫 도시 배정.`) +
+  card("", "인용 편중", `${m.skew.toFixed(1)}%`, `인용 ${m.cited}곳 중 가장 많이 인용된 «${esc(m.skewDoc || "-")}»의 몫. 높으면 한 도시에 기대 썼다 → 배정·구역.`) +
+  card("", "읽고 안 쓴 도시", `${m.unused.length}곳`, `다녀왔지만 엽서에 한 번도 안 나온 곳. 많으면 엉뚱한 첫 도시를 배정했거나 고르기가 빗나갔다 → 기획의 문서 카드.${m.unused.length ? `<br>«${esc(m.unused.join("», «"))}»` : ""}`) +
+  `<div class="hint" style="margin-top:12px;line-height:1.6">✋ 인용이 엉뚱한 문장에 붙은 것(오귀속)은 어느 숫자도 못 잡아요. 📘 가이드북에서 «인용»을 눌러 원문과 직접 대조해 보세요.<br>문장 자르기 규칙: 마침표 뒤에 붙은 «인용»을 앞 문장으로 옮긴 뒤 자릅니다 (규칙이 바뀌면 근거 비율도 바뀌니 고정해 둡니다).</div>`;
+}
+function tocHtml(plan){
+  return `<h3>📋 일정표 — ${esc(plan.제목)}</h3><table class="toc"><tr><th>#</th><th>구역(절)</th><th>역할</th><th>첫 도시</th></tr>` +
+    plan.목차.map((t, i) => `<tr><td><span class="sec-chip" style="--c:${colorOf(i)}">${i + 1}</span></td><td>${esc(t.절)}<div class="hint">${esc(t.지시)}</div></td><td>${esc(t.역할)}</td><td>${t.시작문서 ? `«${esc(t.시작문서)}»` : "자율"}</td></tr>`).join("") + `</table>`;
+}
+$("#pane").addEventListener("click", (ev) => { const d = ev.target.dataset.doc || ev.target.dataset.open; if (d) openDoc(d.replace(/&amp;/g, "&")); });
+let DOCS_TEXT = null;
+async function openDoc(title){
+  DOCS_TEXT ??= await (await fetch("data/docs.json")).json();
+  const text = DOCS_TEXT[title] || "", info = CORPUS.docs.find((d) => d.title === title) || {};
+  const r = { title, chars: info.chars || text.length, text };
+  $("#modalCard").innerHTML = `<h2>📄 ${esc(r.title)}</h2><div class="hint">원문 ${fmt(r.chars)}자 · 앞 4,000자만 보여 줍니다 · 바깥을 누르면 닫혀요</div><div class="box" style="max-height:60vh;margin-top:10px">${esc(r.text || "(코퍼스에 없는 문서)")}</div>`;
+  $("#modal").classList.add("open");
+}
+$("#modal").onclick = (ev) => { if (ev.target.id === "modal") $("#modal").classList.remove("open"); };
+
+/* ───────────────────────── 서버와 이야기하기 ───────────────────────── */
+async function refreshRuns(selectId){
+  const runs = await (await fetch("data/runs.json")).json();
+  $("#fRuns").innerHTML = runs.length ? runs.map((r) => `<option value="${esc(r.id)}">${r.kind === "single" ? "👤" : "👥"} ${esc(r.label)} · ${esc(r.qid || "직접")} · ${r.events}단계 · ${r.alarms ? "🚨" + r.alarms : "✅"}</option>`).join("") : `<option value="">(아직 기록이 없어요)</option>`;
+  return runs;
+  if (selectId) $("#fRuns").value = selectId;
+}
+function openStream(id){
+  D.source?.close();
+  D.live = true;
+  const es = new EventSource(`/api/stream?id=${encodeURIComponent(id)}&from=0`); D.source = es;
+  es.onmessage = (m) => {
+    const e = JSON.parse(m.data); const wasEnd = D.idx === D.events.length - 1;
+    D.events.push(e); if (e.kind === "dispatch") renderBps();
+    if (D.follow && wasEnd && !D.playing) setIdx(D.events.length - 1, { instant: false }); else { drawTicks(); $("#scrub").max = D.events.length - 1; $("#caption .ix").textContent = `${D.idx + 1} / ${D.events.length}`; }
+  };
+  es.addEventListener("done", () => { es.close(); D.live = false; D.source = null; render(true); refreshRuns(id); $("#go").disabled = false; toast("🎉 여행이 끝났어요. 이제 ⏮ 로 처음부터 한 단계씩 돌려 볼 수 있어요."); });
+  es.onerror = () => { if (D.live) toast("연결이 잠깐 끊겼어요. 다시 시도합니다…"); };
+}
+function resetView(){
+  play(false); D.source?.close(); D.events = []; D.idx = -1; D.follow = true; D.selected = null;
+  [...travelers.keys()].forEach(removeTraveler); clearPostcards(); bookTarget = 0.001;
+}
+$("#go").onclick = async () => {
+  const body = { question: $("#fQuestion").value, sections: Number($("#fSections").value), budget: Number($("#fBudget").value),
+    no_roles: $("#fNoRoles").checked, no_assign: $("#fNoAssign").checked, no_zones: $("#fNoZones").checked,
+    replay: $("#fMode").value === "replay", pace: Number($("#fPace").value), incident: $("#fIncident").value === "" ? null : Number($("#fIncident").value) };
+  const r = await fetch("/api/run", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const j = await r.json(); if (!r.ok) { toast(j.error || "출발하지 못했어요"); return; }
+  resetView(); D.runId = j.id; $("#go").disabled = true; $("#planner").classList.remove("open");
+  openStream(j.id); render(true);
+};
+$("#loadRun").onclick = async () => {
+  const id = $("#fRuns").value; if (!id) return;
+  resetView(); D.runId = id; D.live = false;
+  D.events = await (await fetch(`data/events/${encodeURIComponent(id)}.json`)).json();
+  renderBps(); setIdx(-1, { instant: true }); $("#planner").classList.remove("open");
+  toast("⏪ 지난 여행을 불러왔어요. ▶ 재생하거나 → 로 한 단계씩 넘겨 보세요.");
+};
+$("#openPlanner").onclick = () => { $("#planner").classList.toggle("open"); refreshRuns(); };
+function updatePlanWarn(){
+  const st = D.status || {}, replay = $("#fMode").value === "replay" || !st.has_key;
+  $("#fIncident").disabled = !replay;
+  $("#fMode").querySelector('option[value="replay"]').disabled = !st.replay_ok;
+  $("#planWarn").innerHTML = !st.has_key && !st.replay_ok
+    ? `<div class="warn">🔑 이 자료(${esc(st.data_dir)})에는 저장된 기록이 없어요. .env 에 ${esc(st.key_name)} 를 넣어야 출발할 수 있어요. 지난 여행 다시보기는 됩니다.</div>`
+    : replay ? `<div class="warn">🟢 저장된 기록 재생 모드예요. 작성 시점 질문(1894년)의 기록을 돌려주므로 질문·설정을 바꿔도 여정은 같아요.</div>`
+    : `<div class="warn" style="background:rgba(255,107,107,.14);border-color:rgba(255,130,130,.5);color:#ffd6d6">🔴 실제 호출 — ${esc(st.model)} 를 부르고 요금이 나옵니다.</div>`;
+  $("#go").disabled = (!st.has_key && !st.replay_ok) || !!D.live;
+}
+$("#fMode").onchange = updatePlanWarn;
+
+/* ───────────────────────── 애니메이션 루프 ───────────────────────── */
+const clock = new THREE.Clock();
+let bookTarget = 0.001;
+const camDir = new THREE.Vector3(), tmpN = new THREE.Vector3();
+function animate(){
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.05), time = clock.elapsedTime;
+  travelers.forEach((t) => { stepFlight(t, dt); drawTrail(t); });
+  postcards.forEach((p) => {
+    if (p.t < 1) { p.t = Math.min(1, p.t + dt / p.dur); const e = 1 - Math.pow(1 - p.t, 3); p.mesh.position.lerpVectors(p.from, p.dest, e); p.mesh.position.y += Math.sin(Math.PI * e) * 3; }
+    p.mesh.lookAt(camera.position);
+  });
+  const s = hqBook.scale.x + (bookTarget - hqBook.scale.x) * 0.08; hqBook.scale.setScalar(s); hqBook.rotation.y = time * 0.6;
+  postcards.forEach((p) => p.mesh.material.opacity = S.report ? Math.max(0.15, 1 - (s - 0.001)) : 1);
+  hqBeam.pivot.rotation.y = time * 0.9;
+  clouds.forEach((c) => { const q = new THREE.Quaternion().setFromAxisAngle(c.axis, time * c.speed); c.g.position.copy(c.start).applyQuaternion(q).multiplyScalar(c.r); c.g.lookAt(0, 0, 0); });
+  cities.forEach((c) => { if (c.beacon.material.opacity > 0) c.beacon.material.opacity = 0.25 + Math.sin(time * 4) * 0.12; if (c.ring.material.opacity > 0) c.ring.scale.setScalar(1 + Math.sin(time * 3) * 0.06); });
+  // 지구 뒤편 라벨은 숨긴다
+  camDir.copy(camera.position).normalize();
+  cities.forEach((c) => { const vis = tmpN.copy(c.dir).dot(camDir) > 0.18; c.label.style.opacity = vis ? (c.label.classList.length > 1 ? 1 : 0.78) : 0; c.label.style.pointerEvents = vis ? "auto" : "none"; });
+  travelers.forEach((t) => { tmpN.copy(t.g.position).normalize(); t.div.style.visibility = tmpN.dot(camDir) > -0.05 ? "visible" : "hidden"; });
+  const cm = $("#cam").value; let focus = null;
+  if (cm === "hq") focus = hq.position;
+  else if (cm.startsWith("s")) focus = travelers.get(Number(cm.slice(1)))?.g.position;
+  else if (cm === "auto") { const ev = D.events[D.idx]; focus = ev && ev.section != null ? travelers.get(ev.section)?.g.position : (ev ? hq.position : null); }
+  if (focus) {
+    const dist = camera.position.length(), want = focus.clone().normalize().add(new THREE.Vector3(0, 0.35, 0)).setLength(dist);
+    camera.position.lerp(want, 0.035); controls.autoRotate = false;
+  }
+  controls.update(); renderer.render(scene, camera); labelRenderer.render(scene, camera);
+}
+addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); labelRenderer.setSize(innerWidth, innerHeight); drawTicks(); });
+
+/* ───────────────────────── 시작 ───────────────────────── */
+(async function boot(){
+  const corpus = await (await fetch("data/corpus.json")).json();
+  const status = { has_key: false, replay_ok: true, default_mode: "replay", data_dir: "output/runs.jsonl", model: "저장된 기록", key_name: "",
+    window_chars: corpus.window_chars, window_note: corpus.window_note, questions: [], default_question: "", running: null };
+  D.status = status; CORPUS = corpus; buildCities();
+  $("#brandSub").textContent = `${corpus.summary} · ${status.data_dir}`;
+  $("#fQuestion").value = status.default_question;
+  if (status.window_chars) { WINDOW_CHARS = status.window_chars; WINDOW_NOTE = status.window_note; }
+  $("#fPreset").innerHTML = (status.questions || []).map((q, i) => `<option value="${i}">${esc(q.id)} · ${esc(q.유형)} — ${esc(q.질문.slice(0, 34))}${q.질문.length > 34 ? "…" : ""}</option>`).join("");
+  const showWhy = () => { const q = status.questions?.[Number($("#fPreset").value)]; if (q) { $("#fQuestion").value = q.질문; $("#fWhy").textContent = `왜 나눌 만한가: ${q["왜 나눌 만한가"]}`; } };
+  $("#fPreset").onchange = showWhy; showWhy();
+  if (!status.has_key) $("#fMode").value = status.replay_ok ? "replay" : "auto";
+  $("#fIncident").innerHTML = `<option value="">없음</option>` + Array.from({ length: 8 }, (_, i) => `<option value="${i}">🎒 여행자 ${i + 1}의 두 번째 취재를 결항</option>`).join("");
+  updatePlanWarn(); renderBps(); render(true); refreshRuns(); animate();
+  const savedRuns = await refreshRuns();
+  // 주소로 장면 바로 열기: ?run=기록ID&at=단계&tab=event|vars|report|log&sel=여행자번호(1부터)
+  const qs = new URLSearchParams(location.search);
+  if (qs.get("run") && !status.running) {
+    D.runId = qs.get("run");
+    D.events = await (await fetch(`data/events/${encodeURIComponent(D.runId)}.json`)).json();
+    renderBps();
+    if (qs.get("tab")) document.querySelector(`.tab[data-tab="${qs.get("tab")}"]`)?.click();
+    setIdx(qs.get("at") === "end" ? D.events.length - 1 : Number(qs.get("at") ?? -1), { instant: true });
+    if (qs.get("sel")) selectTraveler(Number(qs.get("sel")) - 1);
+  } else if (savedRuns.length) {          // 가장 최근 실행을 바로 불러와 둔다
+    $("#fRuns").value = savedRuns[0].id; await $("#loadRun").onclick();
+  }
+})();
+</script>
+</body>
+</html>

@@ -79,4 +79,5 @@ dataframeHeaderBackgroundColor = "#18181B"
 dataframeBorderColor = "#27272A"
 
 [server]
+enableStaticServing = true
 headless = true

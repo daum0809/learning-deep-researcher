@@ -39,6 +39,8 @@ baseline.py    단일 에이전트 대조군 — 같은 모델·자료·도구·
 ablation.py    스위치 5종을 하나씩 끄고 + 대조군, 질문×시행 반복, 스위치가 코드 경로를 실제로 바꿨는지 확인
 app.py         Streamlit 데모 (app_pages/ 다섯 페이지, ui.py 공용 화면 조각)
 tools/         자료 수집: collect_corpus.py(위키) → add_papers.py(논문) → count_tokens.py(토큰 실측)
+               export_sim.py: runs.jsonl → 시뮬레이터 이벤트 (static/sim/data/, 페이지를 열면 자동으로 다시 만듦)
+static/sim/    3D 여행 시뮬레이터 (Three.js 한 파일) — Streamlit 정적 서빙(/app/static/sim/)으로 열림
 output/        runs.jsonl (실행 전부: 목차·절별 원고·읽은 문서·메모·결정·지표) · ablation.json · reports/*.md
 REPORT.md      제출 보고서
 ```
@@ -49,11 +51,18 @@ REPORT.md      제출 보고서
 |---|---|
 | 조사하기 | 질문 세트에서 고르거나 직접 입력, 스위치 끄기, 노드 로그가 실시간으로 쌓임 |
 | 기록 보기 | **절별 추적**: 절마다 바퀴별로 시작 문서 · 피하기 · 읽은 문서와 메모(원문 n자 → 메모 m자) · 올린 원고 · 자기 신고 · 두 번째 원고를 받았나/버렸나 · 최종본에 실렸나<br>**인용 대조**: 인용 문서 하나를 골라 그 문서를 인용한 문장 ↔ 리서처 메모 ↔ 원문(핵심어 검색)을 나란히 |
+| 🌏 여행 시뮬레이터 | 저장된 실행을 **3D 세계여행**으로 다시 그림 — 🧭 본사(등대)=코디네이터, 🎒 여행자=리서처, 🏙️ 도시=위키 문서, 📄 돔 건물=논문, ✈️ 항공 노선=링크, ✉️ 엽서=원고(원문은 현지에 남음), 🔁 2바퀴 재위임, ✅/✋ 두 번째 원고 받음·버림. 디버거처럼 ⏮ ◀ ▶ ▶\| ⏭ · 중단점 · 단축키(← → Space F10 F5). 모델 호출 없음 |
 | 나란히 비교 | 같은 질문의 실행 두 개(기본·장치 끔·단일 대조군)를 지표 표와 함께 좌우로 |
 | 실험 결과 | 설정별 지표의 시행별 점 + 평균·최소·최대, 경로 확인 실패 경보 |
 | 자료 | 토큰 실측, 묶음별 토큰, 문서별 링크 수(0이면 배정만이 유일한 길), 질문 세트 |
 
+![여행 시뮬레이터](docs/demo-simulator-vars.png)
+
+| 기록 보기 · 보고서 | 기록 보기 · 절별 추적 |
+|---|---|
+| ![보고서](docs/demo-report.png) | ![절별 추적](docs/demo-sections.png) |
+
 ## 자료 출처
 
 한국어·영어 위키백과(CC BY-SA 4.0), 논문 메타데이터·초록 OpenAlex(CC0). 논문 원문 저작권은 각 출판사에 있습니다.
-같은 구조를 3D 여행으로 보여 주는 시뮬레이터: [learning-travel-sim](https://github.com/daum0809/learning-travel-sim)
+시뮬레이터의 원형(pipeline.py 원본을 실시간으로 보는 버전): [learning-travel-sim](https://github.com/daum0809/learning-travel-sim) · [history-travel-sim](https://github.com/daum0809/history-travel-sim)
