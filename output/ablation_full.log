@@ -1,23 +1,67 @@
-[Q1 t2] 기본 — 읽기 20회 · 경보 0 · 근거율 55.0%
-[Q1 t3] 기본 — 읽기 21회 · 경보 0 · 근거율 57.1%
 [Q1 t1] 기본 — 읽기 21회 · 경보 0 · 근거율 55.3%
-[Q1 t2] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 68.6%
-[Q1 t3] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 70.6%
 [Q1 t1] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 67.6%
-[Q1 t2] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 70.6%
-[Q1 t3] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 45.0%
 [Q1 t1] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 44.7%
-[Q1 t2] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 48.8%
+[Q1 t2] 기본 — 읽기 20회 · 경보 0 · 근거율 55.0%
 [Q1 t1] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 47.6%
-[Q1 t3] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 46.7%
-[Q1 t2] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 40.5%
+[Q1 t3] 기본 — 읽기 21회 · 경보 0 · 근거율 57.1%
 [Q1 t1] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 63.9%
+[Q1 t3] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 70.6%
+[Q1 t2] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 68.6%
+[Q1 t3] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 45.0%
+[Q1 t2] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 70.6%
+[Q1 t3] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 46.7%
+[Q1 t2] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 48.8%
 [Q1 t3] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 37.8%
+[Q1 t2] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 40.5%
 [Q1 t2] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 44.7%
+[Q1 t3] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 32.6%
+[Q1 t1] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 37.0%
+[Q1 t2] 단일 — 예산 20 · 예산 소진 100.0% · 강제 1 · 근거율 78.9%
+[Q1 t3] 단일 — 예산 21 · 예산 소진 100.0% · 강제 0 · 근거율 80.0%
+[Q1 t1] 단일 — 예산 21 · 예산 소진 100.0% · 강제 0 · 근거율 68.3%
+[Q4 t1] 기본 — 읽기 15회 · 경보 0 · 근거율 53.6%
+[Q4 t3] 기본 — 읽기 13회 · 경보 0 · 근거율 59.4%
+[Q4 t2] 기본 — 읽기 17회 · 경보 0 · 근거율 59.0%
+[Q4 t1] 배정 끔 — 경로확인 True (시작문서 ['', '', '']) · 근거율 55.2%
+[Q4 t3] 배정 끔 — 경로확인 True (시작문서 ['', '', '']) · 근거율 64.3%
+[Q4 t2] 배정 끔 — 경로확인 True (시작문서 ['', '', '']) · 근거율 71.9%
+[Q4 t1] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 64.1%
+[Q4 t2] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 65.7%
+[Q4 t3] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 62.1%
+[Q4 t1] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 48.4%
+[Q4 t1] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 50.0%
+[Q4 t2] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 61.8%
+[Q4 t3] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 60.0%
+[Q4 t1] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 71.4%
+[Q4 t2] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 64.1%
+[Q4 t3] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 61.5%
+[Q4 t3] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 67.9%
+[Q4 t2] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 70.0%
+[Q4 t1] 단일 — 예산 15 · 예산 소진 100.0% · 강제 0 · 근거율 80.6%
+[Q4 t3] 단일 — 예산 13 · 예산 소진 100.0% · 강제 1 · 근거율 75.5%
+[Q9 t1] 기본 — 읽기 22회 · 경보 0 · 근거율 63.9%
+[Q4 t2] 단일 — 예산 17 · 예산 소진 100.0% · 강제 1 · 근거율 73.9%
+[Q9 t2] 기본 — 읽기 13회 · 경보 0 · 근거율 64.7%
+[Q9 t1] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 61.1%
+[Q9 t3] 기본 — 읽기 21회 · 경보 0 · 근거율 59.5%
+[Q9 t2] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 54.1%
+[Q9 t1] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 55.3%
+[Q9 t3] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 59.5%
+[Q9 t2] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 56.2%
+[Q9 t1] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 55.6%
+[Q9 t3] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 56.2%
+[Q9 t1] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 57.1%
+[Q9 t2] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 75.0%
+[Q9 t3] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 60.7%
+[Q9 t2] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 54.3%
+[Q9 t3] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 51.9%
+[Q9 t1] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 28.6%
+[Q9 t2] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 57.1%
+[Q9 t3] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 65.7%
 Traceback (most recent call last):
-  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 140, in <module>
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 154, in <module>
     main()
-  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 127, in main
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 141, in main
     rows.extend(f.result())
                 ^^^^^^^^^^
   File "C:\Users\daum0\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 449, in result
@@ -28,12 +72,21 @@ Traceback (most recent call last):
   File "C:\Users\daum0\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
     result = self.fn(*self.args, **self.kwargs)
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 76, in one_trial
-    s = single(q, budget=base["metrics"]["읽기횟수"], label=f"abl-{qid}-t{trial}-단일", log=lambda *_: None, meta=meta("단일"))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\baseline.py", line 34, in single
-    raw = team.llm(agent, "너는 리서처다. 질문에 답하는 긴 보고서를 혼자 쓰려고 한다. 문서 카드 목록을 보고 가장 먼저 읽을 문서를 하나 고른다.\n"
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 87, in one_trial
+    s = cached(lab, lambda: single(q, budget=base["metrics"]["읽기횟수"], label=lab, log=lambda *_: None, meta=meta("단일")))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 29, in cached
+    return make()
+           ^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 87, in <lambda>
+    s = cached(lab, lambda: single(q, budget=base["metrics"]["읽기횟수"], label=lab, log=lambda *_: None, meta=meta("단일")))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\baseline.py", line 43, in single
+    nxt = team.pick(agent, task, read, [], widen)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\graph.py", line 263, in pick
+    raw = self.llm(agent,
+          ^^^^^^^^^^^^^^^
   File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\graph.py", line 61, in __call__
     r = self.client.messages.create(model=self.model, max_tokens=max_tokens or CFG["답_최대토큰"], system=system,
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -51,4 +104,4 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\.venv\Lib\site-packages\anthropic\_base_client.py", line 1341, in _request
     raise self._make_status_error_from_response(response) from None
-anthropic.BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CgmLvPV3yWRNM5Jrsjuoc'}
+anthropic.BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CgmQiUqtg26aMBD31JPVw'}
