@@ -1,0 +1,860 @@
+{
+ "model": "claude-haiku-4-5",
+ "window_tokens": 200000,
+ "docs": 119,
+ "total_chars": 967300,
+ "total_tokens": 368586,
+ "ratio_to_window": 1.84,
+ "by_kind": {
+  "위키(한국어)": {
+   "docs": 44,
+   "chars": 229166,
+   "tokens": 219451
+  },
+  "위키(영어)": {
+   "docs": 36,
+   "chars": 674883,
+   "tokens": 135179
+  },
+  "논문(영어)": {
+   "docs": 39,
+   "chars": 63251,
+   "tokens": 13956
+  }
+ },
+ "rows": [
+  {
+   "title": "챗GPT",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 22107,
+   "tokens": 21847
+  },
+  {
+   "title": "기억",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 19613,
+   "tokens": 20061
+  },
+  {
+   "title": "메타인지",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 18091,
+   "tokens": 17872
+  },
+  {
+   "title": "대학수학능력시험",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 14738,
+   "tokens": 13603
+  },
+  {
+   "title": "자기결정성 이론",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 12868,
+   "tokens": 12408
+  },
+  {
+   "title": "마인드셋",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 13055,
+   "tokens": 11233
+  },
+  {
+   "title": "Intelligent tutoring system",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 48177,
+   "tokens": 9897
+  },
+  {
+   "title": "듀오링고",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 9882,
+   "tokens": 9205
+  },
+  {
+   "title": "Massive open online course",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 40100,
+   "tokens": 8726
+  },
+  {
+   "title": "Theory of multiple intelligences",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 41864,
+   "tokens": 8324
+  },
+  {
+   "title": "원격 교육",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 8181,
+   "tokens": 8081
+  },
+  {
+   "title": "교육 기술",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 8469,
+   "tokens": 8056
+  },
+  {
+   "title": "Learning styles",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 36259,
+   "tokens": 7316
+  },
+  {
+   "title": "간격 반복",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 7274,
+   "tokens": 7291
+  },
+  {
+   "title": "Formative assessment",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 36732,
+   "tokens": 7189
+  },
+  {
+   "title": "Problem-based learning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 36649,
+   "tokens": 7120
+  },
+  {
+   "title": "Instructional scaffolding",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 35145,
+   "tokens": 6933
+  },
+  {
+   "title": "학습된 무기력",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 6978,
+   "tokens": 6476
+  },
+  {
+   "title": "생성형 인공지능",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 6441,
+   "tokens": 6383
+  },
+  {
+   "title": "Cooperative learning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 32982,
+   "tokens": 6274
+  },
+  {
+   "title": "Active learning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 31129,
+   "tokens": 6117
+  },
+  {
+   "title": "존 듀이",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 6281,
+   "tokens": 6091
+  },
+  {
+   "title": "피아제의 인지 발달론",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 6107,
+   "tokens": 6011
+  },
+  {
+   "title": "장 피아제",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 6503,
+   "tokens": 5635
+  },
+  {
+   "title": "Learning analytics",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 28687,
+   "tokens": 5553
+  },
+  {
+   "title": "헤르만 에빙하우스",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 5188,
+   "tokens": 5028
+  },
+  {
+   "title": "교육심리학",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 5074,
+   "tokens": 4986
+  },
+  {
+   "title": "평생교육",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 4731,
+   "tokens": 4777
+  },
+  {
+   "title": "Transformative learning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 24703,
+   "tokens": 4636
+  },
+  {
+   "title": "Artificial intelligence in education",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 21499,
+   "tokens": 4514
+  },
+  {
+   "title": "Instructional design",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 19673,
+   "tokens": 4154
+  },
+  {
+   "title": "대형 언어 모델",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 4115,
+   "tokens": 3891
+  },
+  {
+   "title": "Tutoring",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 18792,
+   "tokens": 3862
+  },
+  {
+   "title": "망각 곡선",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 3904,
+   "tokens": 3798
+  },
+  {
+   "title": "기억술",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 3711,
+   "tokens": 3636
+  },
+  {
+   "title": "레프 비고츠키",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 4480,
+   "tokens": 3435
+  },
+  {
+   "title": "Spacing effect",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 16185,
+   "tokens": 3319
+  },
+  {
+   "title": "Self-regulated learning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 17046,
+   "tokens": 3278
+  },
+  {
+   "title": "역진행 수업",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 3679,
+   "tokens": 3265
+  },
+  {
+   "title": "Project-based learning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 17017,
+   "tokens": 3220
+  },
+  {
+   "title": "Andragogy",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 14474,
+   "tokens": 3085
+  },
+  {
+   "title": "Experiential learning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 15804,
+   "tokens": 3069
+  },
+  {
+   "title": "Community of practice",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 14416,
+   "tokens": 2834
+  },
+  {
+   "title": "Testing effect",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 14481,
+   "tokens": 2819
+  },
+  {
+   "title": "게임화",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 2923,
+   "tokens": 2784
+  },
+  {
+   "title": "Worked-example effect",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 14315,
+   "tokens": 2760
+  },
+  {
+   "title": "근접 발달 영역",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 2629,
+   "tokens": 2645
+  },
+  {
+   "title": "Peer assessment",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 12810,
+   "tokens": 2606
+  },
+  {
+   "title": "인지 부하",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 2688,
+   "tokens": 2524
+  },
+  {
+   "title": "Adaptive learning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 12340,
+   "tokens": 2343
+  },
+  {
+   "title": "Direct instruction",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 9726,
+   "tokens": 1973
+  },
+  {
+   "title": "Bloom's taxonomy",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 9643,
+   "tokens": 1923
+  },
+  {
+   "title": "사교육",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1946,
+   "tokens": 1919
+  },
+  {
+   "title": "에듀테크",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 2099,
+   "tokens": 1787
+  },
+  {
+   "title": "Pair programming",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 8801,
+   "tokens": 1714
+  },
+  {
+   "title": "하브루타",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1639,
+   "tokens": 1638
+  },
+  {
+   "title": "Desirable difficulty",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 8283,
+   "tokens": 1638
+  },
+  {
+   "title": "학원",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1583,
+   "tokens": 1561
+  },
+  {
+   "title": "Cognitive apprenticeship",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 7763,
+   "tokens": 1560
+  },
+  {
+   "title": "평생교육사",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1402,
+   "tokens": 1391
+  },
+  {
+   "title": "행동주의",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1499,
+   "tokens": 1367
+  },
+  {
+   "title": "학습",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1320,
+   "tokens": 1328
+  },
+  {
+   "title": "ADDIE model",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 5854,
+   "tokens": 1188
+  },
+  {
+   "title": "코넬 노트",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1382,
+   "tokens": 1134
+  },
+  {
+   "title": "Rubric (academic)",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 5767,
+   "tokens": 1103
+  },
+  {
+   "title": "Leitner system",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 3880,
+   "tokens": 1087
+  },
+  {
+   "title": "Dunlosky 외 (2013) Improving Students' Learning With Effective Learning Techniques",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 5519,
+   "tokens": 1041
+  },
+  {
+   "title": "Microlearning",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 5084,
+   "tokens": 1021
+  },
+  {
+   "title": "구성주의 (교육)",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1072,
+   "tokens": 1018
+  },
+  {
+   "title": "전자 학습",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 1093,
+   "tokens": 986
+  },
+  {
+   "title": "혼합형 학습",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 977,
+   "tokens": 945
+  },
+  {
+   "title": "Malcolm Knowles",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 3524,
+   "tokens": 943
+  },
+  {
+   "title": "안키",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 881,
+   "tokens": 882
+  },
+  {
+   "title": "Pashler 외 (2008) Learning Styles",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 4559,
+   "tokens": 860
+  },
+  {
+   "title": "Yan 외 (2023) Practical and ethical challenges of large language models in education: A systematic scoping review",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 3895,
+   "tokens": 782
+  },
+  {
+   "title": "몰입",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 733,
+   "tokens": 775
+  },
+  {
+   "title": "Coding bootcamp",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 3196,
+   "tokens": 706
+  },
+  {
+   "title": "작업 기억",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 543,
+   "tokens": 520
+  },
+  {
+   "title": "Dekker 외 (2012) Neuromyths in Education: Prevalence and Predictors of Misconceptions among Teachers",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 2360,
+   "tokens": 517
+  },
+  {
+   "title": "Bastani 외 (2025) Generative AI without guardrails can harm learning: Evidence from high school mathematics",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 2001,
+   "tokens": 486
+  },
+  {
+   "title": "Freeman 외 (2014) Active learning increases student performance in science, engineering, and mathematics",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 2243,
+   "tokens": 485
+  },
+  {
+   "title": "Kasneci 외 (2023) ChatGPT for good? On opportunities and challenges of large language models for education",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 2270,
+   "tokens": 457
+  },
+  {
+   "title": "Means 외 (2009) Evaluation of Evidence-Based Practices in Online Learning: A Meta-Analysis and Review of Online Learning Studies",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 2062,
+   "tokens": 456
+  },
+  {
+   "title": "Bishop 외 (2020) The Flipped Classroom: A Survey of the Research",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 2107,
+   "tokens": 453
+  },
+  {
+   "title": "Zawacki‐Richter 외 (2019) Systematic review of research on artificial intelligence applications in higher education - where are the educators?",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 2015,
+   "tokens": 429
+  },
+  {
+   "title": "칸 아카데미",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 422,
+   "tokens": 425
+  },
+  {
+   "title": "Lo (2023) What Is the Impact of ChatGPT on Education? A Rapid Review of the Literature",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1779,
+   "tokens": 417
+  },
+  {
+   "title": "VanLehn (2011) The Relative Effectiveness of Human Tutoring, Intelligent Tutoring Systems, and Other Tutoring Systems",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1547,
+   "tokens": 384
+  },
+  {
+   "title": "Låg 외 (2019) Does the Flipped Classroom Improve Student Learning and Satisfaction? A Systematic Review and Meta-Analysis",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1380,
+   "tokens": 377
+  },
+  {
+   "title": "Peer instruction",
+   "kind": "wiki",
+   "lang": "en",
+   "chars": 2083,
+   "tokens": 375
+  },
+  {
+   "title": "Yeager 외 (2019) A national experiment reveals where a growth mindset improves achievement",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1669,
+   "tokens": 374
+  },
+  {
+   "title": "Kim 외 (2009) Private Tutoring and Demand for Education in South Korea",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1764,
+   "tokens": 372
+  },
+  {
+   "title": "Rohrer 외 (2014) Interleaved practice improves mathematics learning",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1551,
+   "tokens": 347
+  },
+  {
+   "title": "Kolb 외 (2014) Experiential Learning Theory: Previous Research and New Directions",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1390,
+   "tokens": 344
+  },
+  {
+   "title": "Kokotsaki 외 (2016) Project-based learning: A review of the literature",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1562,
+   "tokens": 336
+  },
+  {
+   "title": "Atkinson 외 (2000) Learning from Examples: Instructional Principles from the Worked Examples Research",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1601,
+   "tokens": 330
+  },
+  {
+   "title": "Kestin 외 (2025) AI tutoring outperforms in-class active learning: an RCT introducing a novel research-based design in an authentic educational setting",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1424,
+   "tokens": 314
+  },
+  {
+   "title": "Bjork 외 (2012) Self-Regulated Learning: Beliefs, Techniques, and Illusions",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1354,
+   "tokens": 313
+  },
+  {
+   "title": "Robins 외 (2003) Learning and Teaching Programming: A Review and Discussion",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1450,
+   "tokens": 313
+  },
+  {
+   "title": "Kirschner 외 (2006) Why Minimal Guidance During Instruction Does Not Work: An Analysis of the Failure of Constructivist, Discovery, Problem-Based, Experiential, and Inquiry-Based Teaching",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1448,
+   "tokens": 309
+  },
+  {
+   "title": "Kulik 외 (2015) Effectiveness of Intelligent Tutoring Systems",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1438,
+   "tokens": 307
+  },
+  {
+   "title": "Roediger 외 (2006) Test-Enhanced Learning",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1286,
+   "tokens": 302
+  },
+  {
+   "title": "Settles 외 (2016) A Trainable Spaced Repetition Model for Language Learning",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1112,
+   "tokens": 285
+  },
+  {
+   "title": "Mayer 외 (2003) Nine Ways to Reduce Cognitive Load in Multimedia Learning",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1347,
+   "tokens": 283
+  },
+  {
+   "title": "자기주도적 학습",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 340,
+   "tokens": 277
+  },
+  {
+   "title": "Crouch 외 (2001) Peer Instruction: Ten years of experience and results",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1223,
+   "tokens": 275
+  },
+  {
+   "title": "Cepeda 외 (2006) Distributed practice in verbal recall tasks: A review and quantitative synthesis",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1142,
+   "tokens": 274
+  },
+  {
+   "title": "Karpicke 외 (2011) Retrieval Practice Produces More Learning than Elaborative Studying with Concept Mapping",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1277,
+   "tokens": 268
+  },
+  {
+   "title": "Richlin (2023) Seven Principles for Good Practice in Undergraduate Education",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1044,
+   "tokens": 265
+  },
+  {
+   "title": "포모도로 기법",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 285,
+   "tokens": 261
+  },
+  {
+   "title": "Hattie 외 (2007) The Power of Feedback",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 1251,
+   "tokens": 261
+  },
+  {
+   "title": "성인교육",
+   "kind": "wiki",
+   "lang": "ko",
+   "chars": 240,
+   "tokens": 215
+  },
+  {
+   "title": "Rosenshine (2012) Principles of Instruction: Research-Based Strategies That All Teachers Should Know",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 631,
+   "tokens": 173
+  },
+  {
+   "title": "Zimmerman (2002) Becoming a Self-Regulated Learner: An Overview",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 407,
+   "tokens": 144
+  },
+  {
+   "title": "McDowell 외 (2006) Pair programming improves student retention, confidence, and program quality",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 488,
+   "tokens": 134
+  },
+  {
+   "title": "Merriam (2001) Andragogy and Self-Directed Learning: Pillars of Adult Learning Theory",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 405,
+   "tokens": 132
+  },
+  {
+   "title": "Mezirow (1997) Transformative Learning: Theory to Practice",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 497,
+   "tokens": 131
+  },
+  {
+   "title": "Black 외 (2010) Inside the Black Box: Raising Standards through Classroom Assessment",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 418,
+   "tokens": 117
+  },
+  {
+   "title": "Reich 외 (2019) The MOOC pivot",
+   "kind": "paper",
+   "lang": "en",
+   "chars": 335,
+   "tokens": 109
+  }
+ ]
+}

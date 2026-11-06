@@ -1,0 +1,45 @@
+# 가르치는 현장(학원 · 부트캠프 · 대학 · 평생교육원)에서 바로 쓰는 연구 위주.
+# 제목으로 OpenAlex 에서 찾는다. '#' 줄은 갈래 표시. 초록이 없는 책·보고서는 건너뛴다.
+# ── 수업 설계와 진행: 모든 현장 ──
+Principles of instruction: Research-based strategies that all teachers should know
+Seven principles for good practice in undergraduate education
+Inside the black box: Raising standards through classroom assessment
+The power of feedback
+Active learning increases student performance in science, engineering, and mathematics
+Peer instruction: Ten years of experience and results
+Why minimal guidance during instruction does not work: An analysis of the failure of constructivist, discovery, problem-based, experiential, and inquiry-based teaching
+Learning from examples: Instructional principles from the worked examples research
+Nine ways to reduce cognitive load in multimedia learning
+doi:10.1111/j.1539-6053.2009.01038.x  Pashler 외 (2008) Learning styles: Concepts and evidence
+Neuromyths in education: Prevalence and predictors of misconceptions among teachers
+# ── 학생 공부법 지도: 학원 ──
+doi:10.1177/1529100612453266  Dunlosky 외 (2013) Improving students' learning with effective learning techniques
+doi:10.1111/j.1467-9280.2006.01693.x  Roediger & Karpicke (2006) Test-enhanced learning
+Retrieval practice produces more learning than elaborative studying with concept mapping
+Distributed practice in verbal recall tasks: A review and quantitative synthesis
+doi:10.1037/edu0000001  Rohrer 외 (2015) Interleaved practice improves mathematics learning
+Self-regulated learning: Beliefs, techniques, and illusions
+Becoming a self-regulated learner: An overview
+A national experiment reveals where a growth mindset improves achievement
+doi:10.1086/648186  Kim & Lee (2010) Private tutoring and demand for education in South Korea
+# ── 성인 · 평생교육 · 부트캠프 ──
+Andragogy and self-directed learning: Pillars of adult learning theory
+Experiential learning theory: Previous research and new directions
+Transformative learning: Theory to practice
+doi:10.1126/science.aav7958  Reich & Ruipérez-Valiente (2019) The MOOC pivot
+Evaluation of evidence-based practices in online learning: A meta-analysis and review of online learning studies
+The flipped classroom: A survey of the research
+Does the flipped classroom improve student learning and satisfaction? A systematic review and meta-analysis
+Project-based learning: A review of the literature
+Pair programming improves student retention, confidence, and program quality
+Learning and teaching programming: A review and discussion
+# ── AI 활용 수업 ──
+The relative effectiveness of human tutoring, intelligent tutoring systems, and other tutoring systems
+doi:10.3102/0034654315581420  Kulik & Fletcher (2016) Effectiveness of intelligent tutoring systems
+A trainable spaced repetition model for language learning
+Systematic review of research on artificial intelligence applications in higher education - where are the educators?
+ChatGPT for good? On opportunities and challenges of large language models for education
+What is the impact of ChatGPT on education? A rapid review of the literature
+Practical and ethical challenges of large language models in education: A systematic scoping review | Yan Gasevic
+doi:10.1073/pnas.2422633122  Bastani 외 (2025) Generative AI without guardrails can harm learning
+AI tutoring outperforms in-class active learning: an RCT introducing a novel research-based design in an authentic educational setting

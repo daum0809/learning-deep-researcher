@@ -1,0 +1,54 @@
+[Q1 t2] 기본 — 읽기 20회 · 경보 0 · 근거율 55.0%
+[Q1 t3] 기본 — 읽기 21회 · 경보 0 · 근거율 57.1%
+[Q1 t1] 기본 — 읽기 21회 · 경보 0 · 근거율 55.3%
+[Q1 t2] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 68.6%
+[Q1 t3] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 70.6%
+[Q1 t1] 배정 끔 — 경로확인 True (시작문서 ['', '', '', '']) · 근거율 67.6%
+[Q1 t2] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 70.6%
+[Q1 t3] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 45.0%
+[Q1 t1] 구역 끔 — 경로확인 True (보낸 피하기 0건) · 근거율 44.7%
+[Q1 t2] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 48.8%
+[Q1 t1] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 47.6%
+[Q1 t3] 역할 끔 — 경로확인 True (역할 ['큰그림 담당']) · 근거율 46.7%
+[Q1 t2] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 40.5%
+[Q1 t1] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 63.9%
+[Q1 t3] 재위임 끔 — 경로확인 True (최대 바퀴 1) · 근거율 37.8%
+[Q1 t2] 넓히기 끔 — 경로확인 True (넓힌 횟수 0) · 근거율 44.7%
+Traceback (most recent call last):
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 140, in <module>
+    main()
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 127, in main
+    rows.extend(f.result())
+                ^^^^^^^^^^
+  File "C:\Users\daum0\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\daum0\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\ablation.py", line 76, in one_trial
+    s = single(q, budget=base["metrics"]["읽기횟수"], label=f"abl-{qid}-t{trial}-단일", log=lambda *_: None, meta=meta("단일"))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\baseline.py", line 34, in single
+    raw = team.llm(agent, "너는 리서처다. 질문에 답하는 긴 보고서를 혼자 쓰려고 한다. 문서 카드 목록을 보고 가장 먼저 읽을 문서를 하나 고른다.\n"
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\graph.py", line 61, in __call__
+    r = self.client.messages.create(model=self.model, max_tokens=max_tokens or CFG["답_최대토큰"], system=system,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\.venv\Lib\site-packages\anthropic\_utils\_utils.py", line 294, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\.venv\Lib\site-packages\anthropic\resources\messages\messages.py", line 1247, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\.venv\Lib\site-packages\anthropic\_base_client.py", line 1687, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\.venv\Lib\site-packages\anthropic\_base_client.py", line 1238, in request
+    return self._request(cast_to, options, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daum0\Desktop\작업폴더\learning-deep-researcher\.venv\Lib\site-packages\anthropic\_base_client.py", line 1341, in _request
+    raise self._make_status_error_from_response(response) from None
+anthropic.BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CgmLvPV3yWRNM5Jrsjuoc'}

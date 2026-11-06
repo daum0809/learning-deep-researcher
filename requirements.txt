@@ -1,0 +1,5 @@
+langgraph==1.2.19
+anthropic>=0.70
+python-dotenv>=1.0
+streamlit>=1.57
+pandas>=2.0
