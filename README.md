@@ -4,7 +4,8 @@
 같은 질문을, 코디네이터 1명이 목차를 짜고 리서처 4명이 자기 구역의 자료만 나눠 읽어 인용 붙은 장문 보고서로 답합니다.
 모두의연구소 「에이전트 팀 꾸리기」 딥리서처 프로젝트 제출물입니다. 설계와 실험 결과는 [REPORT.md](REPORT.md)에 있습니다.
 
-> 🌏 **설치 없이 보기 — 3D 여행 시뮬레이터**: https://claude.ai/artifact/Htyv3riFGxXYyBBKcgcSZh
+> 🌏 **설치 없이 보기 — 3D 여행 시뮬레이터**: https://raw.githack.com/daum0809/learning-deep-researcher/main/static/sim/index.html
+> (처음에 나오는 안내 화면에서 **Open the page** 를 한 번 누르세요 · AGENT 02 수강생은 [Claude 아티팩트 링크](https://claude.ai/artifact/Htyv3riFGxXYyBBKcgcSZh)로도 볼 수 있습니다)
 > 저장된 실행 73개(ablation 60회 포함)를 디버거처럼 한 단계씩 재생합니다. 같은 화면이 데모의 '여행 시뮬레이터' 페이지에도 있습니다.
 
 ```
